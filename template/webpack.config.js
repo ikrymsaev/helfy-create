@@ -1,0 +1,74 @@
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
+const isDev = process.env.NODE_ENV === 'development';
+
+const paths = {
+  src: path.resolve(__dirname, 'src'),
+  dist: path.resolve(__dirname, 'dist'),
+};
+
+module.exports = {
+  context: paths.src,
+  mode: isDev ? 'development' : 'production',
+  entry: './index.ts',
+  watchOptions: isDev
+    ? { ignored: ['**/.helfy/**', '**/node_modules/**'] }
+    : {},
+  devServer: {
+    hot: true,
+    port: 3000,
+    static: { directory: paths.src },
+    compress: true,
+    historyApiFallback: true,
+  },
+  output: {
+    filename: 'bundle.js',
+    path: paths.dist,
+    publicPath: '/',
+  },
+  resolve: {
+    modules: ['src', 'node_modules'],
+    extensions: ['.ts', '.js', '.tsx', '.jsx', '.css'],
+    alias: {
+      '@': path.resolve(__dirname, 'src'),
+    },
+  },
+  plugins: [
+    new HTMLWebpackPlugin({
+      template: './index.html',
+      minify: !isDev ? { collapseWhitespace: true } : false,
+    }),
+    new CleanWebpackPlugin(),
+    new MiniCssExtractPlugin({
+      filename: `css/${isDev ? '[name]' : '[contenthash:8]_[id]'}.css`,
+      ignoreOrder: true,
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          { loader: 'css-loader', options: { importLoaders: 1 } },
+        ],
+      },
+      {
+        test: /\.tsx$/,
+        exclude: /node_modules/,
+        use: [
+          'babel-loader',
+          require.resolve('@helfy/helfy/compiler/helfy-loader'),
+        ],
+      },
+      {
+        test: /\.(ts|js)$/,
+        exclude: /node_modules/,
+        use: 'babel-loader',
+      },
+    ],
+  },
+};

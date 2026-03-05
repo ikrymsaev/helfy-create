@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "esnext",
+    "moduleResolution": "node",
+    "target": "es6",
+    "baseUrl": "src",
+    "noEmit": true,
+    "resolveJsonModule": true,
+    "plugins": [{ "name": "@helfy/helfy/ts-plugin" }],
+    "skipLibCheck": true,
+    "strict": true,
+    "jsx": "preserve",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "paths": {
+      "@/*": ["./*"]
+    }
+  },
+  "include": ["src/**/*", ".helfy/**/*"]
+}

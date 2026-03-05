@@ -1,0 +1,25 @@
+{
+  "name": "create-helfy",
+  "version": "0.1.0",
+  "description": "Create a new Helfy project",
+  "bin": {
+    "create-helfy": "./bin/create-helfy.js"
+  },
+  "files": [
+    "bin",
+    "template"
+  ],
+  "keywords": [
+    "helfy",
+    "scaffold",
+    "create",
+    "starter"
+  ],
+  "author": "ikrymsaev",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ikrymsaev/helfy.git",
+    "directory": "packages/create-helfy"
+  }
+}
