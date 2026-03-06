@@ -19,6 +19,15 @@ npx helfy-create
 **Options:**
 - `--skip-install` — create project without running `npm install` (e.g. for custom registry or offline)
 
+## Editor setup (VS Code)
+
+**Syntax highlighting.** The helfy-syntax extension is not in the Marketplace. Install manually from [GitHub](https://github.com/ikrymsaev/helfy-syntax/tree/main/dist):
+
+- Download the **archive** and extract to the extensions folder, or
+- Download the **.vsix** file and install: `Extensions` → `...` → `Install from VSIX...`
+
+**TypeScript.** Use **workspace TypeScript**: `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac) → `TypeScript: Select TypeScript Version` → `Use Workspace Version`. Required because the project includes `@helfy/helfy-ts-plugin`.
+
 ## What you get
 
 - Helfy + TypeScript + Webpack setup

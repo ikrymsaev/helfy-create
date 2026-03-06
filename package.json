@@ -1,6 +1,6 @@
 {
   "name": "helfy-create",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Create a new Helfy project",
   "bin": {
     "helfy-create": "./bin/create-helfy.js"
@@ -14,7 +14,6 @@
     "template/tsconfig.json",
     "template/webpack.config.js",
     "template/declaration.d.ts",
-    "template/docs",
     "template/src"
   ],
   "keywords": [
@@ -27,7 +26,6 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/ikrymsaev/helfy.git",
-    "directory": "packages/create-helfy"
+    "url": "https://github.com/ikrymsaev/helfy-create"
   }
 }
