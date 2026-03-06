@@ -1,0 +1,25 @@
+# Dependencies (any level)
+node_modules
+**/node_modules
+
+# Version control
+.git
+/.gitignore
+.gitignore
+
+# Build & cache
+*.tgz
+*.log
+.DS_Store
+
+# IDE & editor
+.vscode
+.idea
+.cursor
+
+# Template generated/cache
+**/package-lock.json
+template/node_modules
+template/.helfy
+template/dist
+/package-lock.json

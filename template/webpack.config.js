@@ -8,6 +8,10 @@ const isDev = process.env.NODE_ENV === 'development';
 const paths = {
   src: path.resolve(__dirname, 'src'),
   dist: path.resolve(__dirname, 'dist'),
+  context: path.relative(__dirname, 'src/context'),
+  pages: path.resolve(__dirname, 'src/pages'),
+  shared: path.resolve(__dirname, 'src/shared'),
+  widgets: path.resolve(__dirname, 'src/widgets'),
 };
 
 module.exports = {
@@ -15,7 +19,7 @@ module.exports = {
   mode: isDev ? 'development' : 'production',
   entry: './index.ts',
   watchOptions: isDev
-    ? { ignored: ['**/.helfy/**', '**/node_modules/**'] }
+    ? { ignored: ['**/node_modules/**', '**/.helfy/**'] }
     : {},
   devServer: {
     hot: true,
@@ -34,6 +38,9 @@ module.exports = {
     extensions: ['.ts', '.js', '.tsx', '.jsx', '.css'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
+      '@context': path.resolve(__dirname, 'src/context'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@widgets': path.resolve(__dirname, 'src/widgets'),
     },
   },
   plugins: [

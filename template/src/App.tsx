@@ -1,23 +1,24 @@
 import { View } from "@helfy/helfy";
-import { RouterContext, RouterView, Link } from "@helfy/helfy";
-import { routes } from "./pages/routes";
+import { ThemeContext, ThemeSync } from "@context/ThemeContext";
+import { MainLayout } from "@pages/layouts/MainLayout";
+import { Header } from "@widgets/Header/Header";
+import { Footer } from "@widgets/Footer/Footer";
+import { AppRouter } from "@pages/_router";
 
 @View
 export class App {
   render() {
     return (
-      <RouterContext routes={routes}>
+      <ThemeContext>
+        <ThemeSync />
         <div class="app">
-          <nav class="nav">
-            <Link to="/" label="Home" />
-            <Link to="/counter" label="Counter" />
-            <Link to="/about" label="About" />
-          </nav>
-          <main class="main">
-            <RouterView />
-          </main>
+          <MainLayout>
+            @slot.header() {<Header />}
+            @slot.content() {<AppRouter />}
+            @slot.footer() {<Footer />}
+          </MainLayout>
         </div>
-      </RouterContext>
+      </ThemeContext>
     );
   }
 }

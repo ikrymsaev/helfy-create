@@ -6,15 +6,17 @@
     "baseUrl": "src",
     "noEmit": true,
     "resolveJsonModule": true,
-    "plugins": [{ "name": "@helfy/helfy/ts-plugin" }],
     "skipLibCheck": true,
-    "strict": true,
     "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "plugins": [{ "name": "@helfy/helfy-ts-plugin" }],
     "paths": {
-      "@/*": ["./*"]
+      "@context/*": ["./context/*"],
+      "@pages/*": ["./pages/*"],
+      "@shared/*": ["./shared/*"],
+      "@widgets/*": ["./widgets/*"],
     }
   },
-  "include": ["src/**/*", ".helfy/**/*"]
+  "include": ["src/**/*", ".helfy/**/*", "declaration.d.ts"]
 }

@@ -1,13 +1,21 @@
 {
-  "name": "create-helfy",
-  "version": "0.1.0",
+  "name": "helfy-create",
+  "version": "0.0.3",
   "description": "Create a new Helfy project",
   "bin": {
-    "create-helfy": "./bin/create-helfy.js"
+    "helfy-create": "./bin/create-helfy.js"
   },
   "files": [
     "bin",
-    "template"
+    "template/.babelrc",
+    "template/gitignore",
+    "template/package.json",
+    "template/package-lock.json",
+    "template/tsconfig.json",
+    "template/webpack.config.js",
+    "template/declaration.d.ts",
+    "template/docs",
+    "template/src"
   ],
   "keywords": [
     "helfy",

@@ -5,7 +5,7 @@ Create a new Helfy project with one command.
 ## Usage
 
 ```bash
-npx create-helfy my-app
+npx helfy-create my-app
 cd my-app
 npm run dev
 ```
@@ -13,7 +13,7 @@ npm run dev
 Or without a project name (creates `helfy-app`):
 
 ```bash
-npx create-helfy
+npx helfy-create
 ```
 
 **Options:**
