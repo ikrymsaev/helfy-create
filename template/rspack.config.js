@@ -1,17 +1,11 @@
 const path = require('path');
-const HTMLWebpackPlugin = require('html-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const { rspack } = require('@rspack/core');
 
 const isDev = process.env.NODE_ENV === 'development';
 
 const paths = {
   src: path.resolve(__dirname, 'src'),
   dist: path.resolve(__dirname, 'dist'),
-  context: path.relative(__dirname, 'src/context'),
-  pages: path.resolve(__dirname, 'src/pages'),
-  shared: path.resolve(__dirname, 'src/shared'),
-  widgets: path.resolve(__dirname, 'src/widgets'),
 };
 
 module.exports = {
@@ -32,10 +26,11 @@ module.exports = {
     filename: 'bundle.js',
     path: paths.dist,
     publicPath: '/',
+    clean: true,
   },
   resolve: {
     modules: ['src', 'node_modules'],
-    extensions: ['.ts', '.js', '.tsx', '.jsx', '.css'],
+    extensions: ['.ts', '.js', '.hf', '.css'],
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@context': path.resolve(__dirname, 'src/context'),
@@ -44,12 +39,11 @@ module.exports = {
     },
   },
   plugins: [
-    new HTMLWebpackPlugin({
+    new rspack.HtmlRspackPlugin({
       template: './index.html',
-      minify: !isDev ? { collapseWhitespace: true } : false,
+      minify: !isDev,
     }),
-    new CleanWebpackPlugin(),
-    new MiniCssExtractPlugin({
+    new rspack.CssExtractRspackPlugin({
       filename: `css/${isDev ? '[name]' : '[contenthash:8]_[id]'}.css`,
       ignoreOrder: true,
     }),
@@ -58,17 +52,18 @@ module.exports = {
     rules: [
       {
         test: /\.css$/,
+        type: 'javascript/auto',
         use: [
-          MiniCssExtractPlugin.loader,
+          rspack.CssExtractRspackPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
         ],
       },
       {
-        test: /\.tsx$/,
+        test: /\.hf$/,
         exclude: /node_modules/,
         use: [
           'babel-loader',
-          require.resolve('@helfy/helfy/compiler/helfy-loader'),
+          require.resolve('@helfy/helfy/compiler/hf-loader'),
         ],
       },
       {

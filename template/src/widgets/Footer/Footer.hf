@@ -1,0 +1,5 @@
+import type { Footer } from "./Footer";
+
+@template<Footer>() {
+  <span>Powered by Helfy — © 2026</span>
+}

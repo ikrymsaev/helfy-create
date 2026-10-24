@@ -1,0 +1,14 @@
+import type { NotFound } from "./NotFound";
+import { Link } from "@helfy/helfy";
+
+@template<NotFound>() {
+  <section class="not-found">
+    <div class="not-found__code">404</div>
+    <h1 class="not-found__title">Oops! Page not found</h1>
+    <p class="not-found__text">The requested address does not exist or has been moved.</p>
+    @if (this.props.pathname) {
+      <p class="not-found__path">{this.props.pathname}</p>
+    }
+    <Link to="/" label="Back to home" class="btn btn--primary" />
+  </section>
+}

@@ -7,10 +7,8 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "jsx": "preserve",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
-    "plugins": [{ "name": "@helfy/helfy-ts-plugin" }],
     "paths": {
       "@context/*": ["./context/*"],
       "@pages/*": ["./pages/*"],

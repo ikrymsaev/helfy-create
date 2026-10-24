@@ -1,0 +1,16 @@
+import type { ThemeToggle } from "./ThemeToggle";
+
+@template<ThemeToggle>() {
+  <button
+    type="button"
+    class="theme-toggle"
+    onclick={() => this.toggle()}
+    aria-label={this.mode === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+  >
+    @if (this.mode === "dark") {
+      <span>Light</span>
+    } @else {
+      <span>Dark</span>
+    }
+  </button>
+}

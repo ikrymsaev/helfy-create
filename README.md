@@ -1,6 +1,6 @@
-# create-helfy
+# helfy-create
 
-Create a new Helfy project with one command.
+Create a new [Helfy](https://github.com/ikrymsaev/helfy/tree/main/packages/helfy) project with one command.
 
 ## Usage
 
@@ -17,22 +17,33 @@ npx helfy-create
 ```
 
 **Options:**
-- `--skip-install` — create project without running `npm install` (e.g. for custom registry or offline)
+- `--skip-install` — create the project without running `npm install` (e.g. for a custom registry or offline)
 
-## Editor setup (VS Code)
+## Editor setup (VS Code / Cursor)
 
-**Syntax highlighting.** The helfy-syntax extension is not in the Marketplace. Install manually from [GitHub](https://github.com/ikrymsaev/helfy-syntax/tree/main/dist):
+The Helfy extension adds `.hf` template support: highlighting, type checking of template expressions, hover,
+go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace — install the `.vsix` from
+[GitHub](https://github.com/ikrymsaev/helfy/tree/main/packages/vscode-extension):
 
-- Download the **archive** and extract to the extensions folder, or
-- Download the **.vsix** file and install: `Extensions` → `...` → `Install from VSIX...`
+```bash
+code --install-extension helfy-vscode-0.1.1.vsix
+```
 
-**TypeScript.** Use **workspace TypeScript**: `Ctrl+Shift+P` (Windows/Linux) or `Cmd+Shift+P` (Mac) → `TypeScript: Select TypeScript Version` → `Use Workspace Version`. Required because the project includes `@helfy/helfy-ts-plugin`.
+or `Extensions` → `...` → `Install from VSIX...`.
 
 ## What you get
 
-- Helfy + TypeScript + Webpack setup
-- Babel preset with helfy compiler
-- Router with example pages (Home, Counter, About)
-- Basic styling
+- Helfy + TypeScript + Rspack
+- Components as `.ts` classes with `.hf` templates next to them
+- Router with example pages (Home, Counter, lazily loaded About) and a custom 404 page
+- Layout with slots, a theme context, `@safe / @wait / @fail` around the router
 - `npm run dev` — development server (port 3000)
 - `npm run build` — production build
+
+```
+src/
+  App.ts / App.hf              root component
+  context/ThemeContext.ts      light / dark theme
+  pages/                       pages, routes, layout
+  widgets/                     header, sidebar, footer, 404, theme toggle
+```

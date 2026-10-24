@@ -18,14 +18,22 @@ if (fs.existsSync(root)) {
 
 console.log(`Creating Helfy project in ${projectName}...\n`);
 
+// Present only when the template is installed locally (they are not in the published package).
+const SKIP = new Set(["node_modules", "dist", ".helfy"]);
+// Copied byte for byte; the rest is text with {{PROJECT_NAME}} placeholders.
+const BINARY = /\.(ico|png|jpe?g|gif|webp|woff2?)$/i;
+
 function copyDir(src, dest) {
   fs.mkdirSync(dest, { recursive: true });
   for (const name of fs.readdirSync(src)) {
+    if (SKIP.has(name)) continue;
     const srcPath = path.join(src, name);
     const destName = name === "gitignore" ? ".gitignore" : name;
     const destPath = path.join(dest, destName);
     if (fs.statSync(srcPath).isDirectory()) {
       copyDir(srcPath, destPath);
+    } else if (BINARY.test(name)) {
+      fs.copyFileSync(srcPath, destPath);
     } else {
       let content = fs.readFileSync(srcPath, "utf-8");
       content = content.replace(/\{\{PROJECT_NAME\}\}/g, projectName);

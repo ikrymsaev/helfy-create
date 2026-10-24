@@ -1,0 +1,12 @@
+import type { AboutPage } from "./AboutPage";
+
+@template<AboutPage>() {
+  <div class="page">
+    <h1>About</h1>
+    <p>This is a Helfy application with routing, slots, a theme context and a lazily loaded page.</p>
+    <p>
+      This page is a separate chunk loaded on the first visit — see <code>lazy()</code> in
+      <code>src/pages/_routes.ts</code>.
+    </p>
+  </div>
+}

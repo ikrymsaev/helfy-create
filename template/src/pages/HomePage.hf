@@ -1,0 +1,17 @@
+import type { HomePage } from "./HomePage";
+
+@template<HomePage>() {
+  <div class="page">
+    <h1>Welcome to Helfy</h1>
+    <p>Helfy is a TypeScript UI framework with decorators, .hf templates and fine-grained reactivity.</p>
+    <p>
+      Edit <code>src/pages/HomePage.hf</code> and save the file — changes will appear automatically.
+    </p>
+    <h2>Quick start</h2>
+    <p>
+      A component is a class with <code>@View</code> (<code>HomePage.ts</code>), its markup lives in the
+      <code>.hf</code> template next to it. Open the Counter page to see reactivity in action and toggle the theme in
+      the top-right corner.
+    </p>
+  </div>
+}

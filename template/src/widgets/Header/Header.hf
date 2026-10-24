@@ -1,0 +1,15 @@
+import type { Header } from "./Header";
+import { Link } from "@helfy/helfy";
+import { ThemeToggle } from "@widgets/ThemeToggle/ThemeToggle";
+
+@template<Header>() {
+  <div class="header__inner">
+    <Link to="/" label="Helfy" class="header__logo" />
+    <nav class="nav">
+      @for (link of this.links; track link.to) {
+        <Link to={link.to} label={link.label} class={this.pathname === link.to ? "nav-link--active" : ""} />
+      }
+    </nav>
+    <ThemeToggle />
+  </div>
+}
