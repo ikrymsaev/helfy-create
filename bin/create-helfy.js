@@ -4,12 +4,20 @@
 const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
+const { installExtension } = require("./extension");
 
 const args = process.argv.slice(2);
 const skipInstall = args.includes("--skip-install");
+const skipExtension = args.includes("--skip-extension");
 const projectName = args.find((a) => !a.startsWith("--")) || "helfy-app";
 const root = path.resolve(process.cwd(), projectName);
 const templateDir = path.join(__dirname, "..", "template");
+
+// Only the editor extension, no project
+if (args.includes("--install-extension")) {
+  installExtension("yes").then(() => process.exit(0));
+  return;
+}
 
 if (fs.existsSync(root)) {
   console.error(`Error: Directory "${projectName}" already exists.`);
@@ -50,9 +58,16 @@ if (!skipInstall) {
   execSync("npm install", { stdio: "inherit" });
 }
 
-console.log("\nDone! To get started:\n");
-console.log(`  cd ${projectName}`);
-if (skipInstall) {
-  console.log("  npm install");
-}
-console.log("  npm run dev\n");
+(async () => {
+  if (!skipExtension) {
+    console.log("");
+    await installExtension("ask");
+  }
+
+  console.log("\nDone! To get started:\n");
+  console.log(`  cd ${projectName}`);
+  if (skipInstall) {
+    console.log("  npm install");
+  }
+  console.log("  npm run dev\n");
+})();

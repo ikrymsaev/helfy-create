@@ -18,18 +18,27 @@ npx helfy-create
 
 **Options:**
 - `--skip-install` — create the project without running `npm install` (e.g. for a custom registry or offline)
+- `--skip-extension` — do not offer to install the editor extension
+- `--install-extension` — only install the editor extension, without creating a project
 
 ## Editor setup (VS Code / Cursor)
 
 The Helfy extension adds `.hf` template support: highlighting, type checking of template expressions, hover,
-go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace — install the `.vsix` from
-[GitHub](https://github.com/ikrymsaev/helfy/tree/main/packages/vscode-extension):
+go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
+
+`helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). To install or update it at any time:
 
 ```bash
-code --install-extension helfy-vscode-0.1.1.vsix
+npx helfy-create --install-extension
 ```
 
-or `Extensions` → `...` → `Install from VSIX...`.
+Or by hand: download
+[helfy-vscode.vsix](https://github.com/ikrymsaev/helfy-syntax/releases/latest/download/helfy-vscode.vsix) and run
+`code --install-extension helfy-vscode.vsix` (or `Extensions` → `...` → `Install from VSIX...`).
+
+The old `helfy.helfy-syntax` extension (directives in `.tsx`) conflicts with it — uninstall it:
+`code --uninstall-extension helfy.helfy-syntax`.
 
 ## What you get
 
