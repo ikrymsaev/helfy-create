@@ -10,12 +10,12 @@ import { NotFound } from "@widgets/NotFound/NotFound";
       }
     </RouterView>
   } @wait {
-    <p class="page">Loading…</p>
+    <div class="page"><div class="skeleton" style="height: 120px"></div></div>
   } @fail (error, retry) {
     <section class="page" role="alert">
       <h2>Something went wrong</h2>
-      <p>{error instanceof Error ? error.message : String(error)}</p>
-      <button type="button" class="btn" onclick={retry}>Try again</button>
+      <p class="muted">{error instanceof Error ? error.message : String(error)}</p>
+      <div><button type="button" class="btn" onclick={retry}>Try again</button></div>
     </section>
   }
 }

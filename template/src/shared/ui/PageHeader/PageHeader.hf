@@ -1,0 +1,9 @@
+import type { PageHeader } from "./PageHeader";
+
+@template<PageHeader>() {
+  <header class="page-header">
+    @if (this.props.eyebrow) -> <span class="eyebrow">{this.props.eyebrow}</span>
+    <h1>{this.props.title}</h1>
+    <p>@slot:default()</p>
+  </header>
+}

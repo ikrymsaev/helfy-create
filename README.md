@@ -42,17 +42,23 @@ The old `helfy.helfy-syntax` extension (directives in `.tsx`) conflicts with it 
 
 ## What you get
 
-- Helfy + TypeScript + Rspack
-- Components as `.ts` classes with `.hf` templates next to them
-- Router with example pages (Home, Counter, lazily loaded About) and a custom 404 page
-- Layout with slots, a theme context, `@safe / @wait / @fail` around the router
-- `npm run dev` — development server (port 3000)
-- `npm run build` — production build
+A small app that shows how a Helfy project is structured — layers with one job each, wired by dependency injection:
+
+- **Overview** — how the app is built: the layers, their rules, the path of one click through them
+- **Tasks** — local state through all the layers: `@View` → `@UseCase` → `@Store` and `@Service` (localStorage)
+- **Users** — server data: `@ApiClient` queries over a mock backend, loading and errors with `@safe / @wait / @fail`,
+  a lazily loaded page with route params
+- Helfy + TypeScript + Rspack, `.hf` templates with scoped styles, a theme context, a custom 404 page
+- `ARCHITECTURE.md` — the structure and the rules of each layer
+- `npm run dev` — development server (port 3000), `npm run build` — production build
 
 ```
 src/
-  App.ts / App.hf              root component
-  context/ThemeContext.ts      light / dark theme
-  pages/                       pages, routes, layout
-  widgets/                     header, sidebar, footer, 404, theme toggle
+  App.ts / App.hf     the shell: layout, header, navigation, router
+  context/            theme
+  pages/              one component per route; pages compose modules
+  widgets/            header, navigation, footer, 404
+  modules/
+    tasks/            model (@Store), services, use-cases, ui
+    users/            api (@ApiClient + mock backend), ui
 ```

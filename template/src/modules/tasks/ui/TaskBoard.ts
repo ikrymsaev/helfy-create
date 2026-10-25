@@ -1,0 +1,50 @@
+import { View, inject, state, computed } from "@helfy/helfy";
+import type { ITaskStore, Task } from "../model/types";
+import type {
+  IAddTaskUseCase,
+  ILoadTasksUseCase,
+  IRemoveTaskUseCase,
+  IToggleTaskUseCase,
+} from "../use-cases/types";
+import template from "./TaskBoard.hf";
+
+export type TaskFilter = "all" | "active" | "done";
+
+/**
+ * View: reads the store, calls use cases, keeps only UI state (input text, filter).
+ * No business rules here — they live in the use cases.
+ */
+@View({ template })
+export class TaskBoard {
+  @inject<ITaskStore>() store!: ITaskStore;
+  @inject<ILoadTasksUseCase>() loadTasks!: ILoadTasksUseCase;
+  @inject<IAddTaskUseCase>() addTask!: IAddTaskUseCase;
+  @inject<IToggleTaskUseCase>() toggleTask!: IToggleTaskUseCase;
+  @inject<IRemoveTaskUseCase>() removeTask!: IRemoveTaskUseCase;
+
+  @state title = "";
+  @state error = "";
+  @state filter: TaskFilter = "all";
+
+  readonly filters: TaskFilter[] = ["all", "active", "done"];
+
+  @computed
+  get visible(): Task[] {
+    if (this.filter === "all") return this.store.tasks;
+    return this.store.tasks.filter((t) => t.done === (this.filter === "done"));
+  }
+
+  onAttached() {
+    this.loadTasks.execute();
+  }
+
+  submit = (e: Event) => {
+    e.preventDefault();
+    const result = this.addTask.execute(this.title);
+    this.error = result.error ?? "";
+    if (result.ok) this.title = "";
+  };
+
+  toggle = (id: string) => this.toggleTask.execute(id);
+  remove = (id: string) => this.removeTask.execute(id);
+}

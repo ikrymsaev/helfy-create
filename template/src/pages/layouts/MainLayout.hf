@@ -2,23 +2,30 @@ import type { MainLayout } from "./MainLayout";
 
 @template<MainLayout>() {
   <div class="layout">
-    <header class="header">
-      @slot:header()
+    <header class="layout__header">
+      <div class="container">@slot:header()</div>
     </header>
-    <div class="layout__body">
-      <aside class="sidebar">
-        @slot:sidebar()
-      </aside>
-      <main class="main">
-        <div class="main__content">
-          @slot:content()
-        </div>
-      </main>
-    </div>
-    <footer class="footer">
-      @slot:footer() fallback {
-        <span>© 2026</span>
-      }
+    <main class="layout__main">
+      <div class="container">@slot:content()</div>
+    </main>
+    <footer class="layout__footer">
+      <div class="container">
+        @slot:footer() fallback {
+          <span>© 2026</span>
+        }
+      </div>
     </footer>
   </div>
 }
+
+<style scoped>
+  .layout { display: flex; flex-direction: column; min-height: 100vh; }
+  .layout__header {
+    position: sticky; top: 0; z-index: 10;
+    background: color-mix(in srgb, var(--color-bg) 75%, transparent);
+    border-bottom: 1px solid var(--color-border);
+    backdrop-filter: blur(14px);
+  }
+  .layout__main { flex: 1; }
+  .layout__footer { padding: 24px 0; border-top: 1px solid var(--color-border); }
+</style>

@@ -11,6 +11,8 @@
     "emitDecoratorMetadata": true,
     "paths": {
       "@context/*": ["./context/*"],
+      "@modules/*": ["./modules/*"],
+      "@assets/*": ["./assets/*"],
       "@pages/*": ["./pages/*"],
       "@shared/*": ["./shared/*"],
       "@widgets/*": ["./widgets/*"],

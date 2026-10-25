@@ -1,5 +1,12 @@
 import type { Footer } from "./Footer";
 
 @template<Footer>() {
-  <span>Powered by Helfy — © 2026</span>
+  <div class="footer">
+    <span>Built with <a href="https://www.npmjs.com/package/@helfy/helfy" target="_blank" rel="noreferrer">Helfy</a></span>
+    <span>Read <code>ARCHITECTURE.md</code> to see how it fits together</span>
+  </div>
 }
+
+<style scoped>
+  .footer { display: flex; justify-content: space-between; gap: 16px; font-size: 0.85rem; color: var(--color-text-subtle); }
+</style>

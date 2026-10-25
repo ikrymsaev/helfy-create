@@ -1,0 +1,13 @@
+import type { TasksPage } from "./TasksPage";
+import { PageHeader } from "@shared/ui/PageHeader/PageHeader";
+import { TaskBoard } from "@modules/tasks";
+
+@template<TasksPage>() {
+  <div class="page">
+    <PageHeader eyebrow="Feature · local state" title="Tasks">
+      The view calls use cases; they check the rules and update <code>TaskStore</code> and
+      <code>LocalTaskStorage</code>. Tasks survive a page reload.
+    </PageHeader>
+    <TaskBoard />
+  </div>
+}

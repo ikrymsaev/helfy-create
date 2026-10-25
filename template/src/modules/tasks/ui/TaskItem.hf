@@ -1,0 +1,46 @@
+import type { TaskItem } from "./TaskItem";
+
+@template<TaskItem>() {
+  <li class={this.props.task.done ? "task task--done" : "task"}>
+    <label class="task__check">
+      <input
+        type="checkbox"
+        checked={this.props.task.done}
+        onchange={() => this.props.onToggle(this.props.task.id)}
+      />
+      <span class="task__box"></span>
+      <span class="task__title">{this.props.task.title}</span>
+    </label>
+    <button type="button" class="task__remove" aria-label="Remove" onclick={() => this.props.onRemove(this.props.task.id)}>
+      ×
+    </button>
+  </li>
+}
+
+<style scoped>
+  .task {
+    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
+    background: var(--color-surface-2); border: 1px solid transparent; border-radius: var(--radius);
+    transition: border-color 0.15s;
+  }
+  .task:hover { border-color: var(--color-border); }
+  .task__check { display: flex; flex: 1; align-items: center; gap: 12px; cursor: pointer; }
+  .task__check input { position: absolute; opacity: 0; pointer-events: none; }
+  .task__box {
+    position: relative; flex-shrink: 0; width: 20px; height: 20px;
+    border: 2px solid var(--color-border-strong); border-radius: 6px; transition: background 0.15s, border-color 0.15s;
+  }
+  .task__check input:checked + .task__box { background: var(--gradient-brand); border-color: transparent; }
+  .task__check input:checked + .task__box::after {
+    content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px;
+    border: solid var(--color-on-brand); border-width: 0 2px 2px 0; transform: rotate(45deg);
+  }
+  .task__check input:focus-visible + .task__box { box-shadow: 0 0 0 4px var(--color-accent-soft); }
+  .task--done .task__title { color: var(--color-text-subtle); text-decoration: line-through; }
+  .task__remove {
+    width: 28px; height: 28px; font-size: 1.2rem; line-height: 1; color: var(--color-text-subtle); cursor: pointer;
+    background: transparent; border: 0; border-radius: 8px; opacity: 0; transition: opacity 0.15s;
+  }
+  .task:hover .task__remove, .task__remove:focus-visible { opacity: 1; }
+  .task__remove:hover { color: var(--color-danger); background: var(--color-surface); }
+</style>

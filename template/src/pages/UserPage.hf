@@ -1,0 +1,23 @@
+import type { UserPage } from "./UserPage";
+import { Link } from "@helfy/helfy";
+import { UserProfile } from "@modules/users";
+
+@template<UserPage>() {
+  <div class="page">
+    <Link to="/users" label="← All users" class="back" />
+    @safe {
+      <UserProfile id={this.routeParams.id} />
+    } @wait {
+      <div class="skeleton" style="height: 180px; border-radius: 18px"></div>
+    } @fail (error) {
+      <div class="card" role="alert">
+        <h2>Not found</h2>
+        <p class="muted">{error instanceof Error ? error.message : String(error)}</p>
+      </div>
+    }
+  </div>
+}
+
+<style scoped>
+  .back { align-self: flex-start; font-size: 0.9rem; }
+</style>

@@ -1,0 +1,56 @@
+import type { TaskBoard } from "./TaskBoard";
+import { TaskItem } from "./TaskItem";
+
+@template<TaskBoard>() {
+  <section class="board card">
+    <form class="board__form" onsubmit={this.submit}>
+      <input @bind(this.title) class="input board__input" placeholder="What needs to be done?" />
+      <button type="submit" class="btn btn--primary">Add task</button>
+    </form>
+    @if (this.error) -> <p class="board__error" role="alert">{this.error}</p>
+
+    <div class="board__bar">
+      <span class="muted"><strong>{this.store.left}</strong> left</span>
+      <div class="board__filters">
+        @for (f of this.filters; track f) {
+          <button
+            type="button"
+            class={f === this.filter ? "chip chip--active" : "chip"}
+            onclick={() => (this.filter = f)}
+          >
+            {f}
+          </button>
+        }
+      </div>
+    </div>
+
+    <ul class="board__list">
+      @for (task of this.visible; track task.id) {
+        <TaskItem task={task} onToggle={this.toggle} onRemove={this.remove} />
+      } @empty {
+        <li class="board__empty">Nothing here yet — add the first task above.</li>
+      }
+    </ul>
+  </section>
+}
+
+<style scoped>
+  .board { display: flex; flex-direction: column; gap: 16px; max-width: 640px; padding: 24px; }
+  .board__form { display: flex; gap: 10px; }
+  .board__input { flex: 1; }
+  .board__error { margin: -6px 0 0 14px; color: var(--color-danger); font-size: 0.85rem; }
+  .board__bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
+  .board__bar strong { color: var(--color-text); }
+  .board__filters { display: flex; gap: 2px; padding: 3px; background: var(--color-surface-2); border-radius: 999px; }
+  .chip {
+    padding: 4px 14px; font: 500 0.8rem var(--font-sans); text-transform: capitalize; color: var(--color-text-muted);
+    cursor: pointer; background: transparent; border: 0; border-radius: 999px;
+  }
+  .chip:hover { color: var(--color-text); }
+  .chip--active { color: var(--color-text); background: var(--color-surface); box-shadow: var(--shadow-card); }
+  .board__list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
+  .board__empty {
+    padding: 28px 0; color: var(--color-text-subtle); text-align: center;
+    border: 1px dashed var(--color-border-strong); border-radius: var(--radius);
+  }
+</style>

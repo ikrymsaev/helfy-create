@@ -1,15 +1,37 @@
 import type { Header } from "./Header";
 import { Link } from "@helfy/helfy";
 import { ThemeToggle } from "@widgets/ThemeToggle/ThemeToggle";
+import logo from "@assets/logo.svg";
 
 @template<Header>() {
-  <div class="header__inner">
-    <Link to="/" label="Helfy" class="header__logo" />
-    <nav class="nav">
+  <div class="header">
+    <Link to="/" class="header__brand">
+      <img src={logo} alt="" width="26" height="26" />
+      <span>Helfy</span>
+    </Link>
+    <nav class="header__nav">
       @for (link of this.links; track link.to) {
-        <Link to={link.to} label={link.label} class={this.pathname === link.to ? "nav-link--active" : ""} />
+        <Link to={link.to} label={link.label} class={this.isActive(link.to) ? "header__link header__link--active" : "header__link"} />
       }
     </nav>
     <ThemeToggle />
   </div>
 }
+
+<style scoped>
+  .header { display: flex; align-items: center; gap: 24px; height: 64px; }
+  .header__brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 1.1rem; font-weight: 800; letter-spacing: -0.02em; color: var(--color-text);
+  }
+  .header__brand:hover { text-decoration: none; }
+  .header__nav {
+    display: flex; gap: 4px; margin: 0 auto; padding: 4px;
+    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 999px;
+  }
+  .header__link {
+    padding: 6px 16px; font-size: 0.875rem; font-weight: 500; color: var(--color-text-muted); border-radius: 999px;
+  }
+  .header__link:hover { color: var(--color-text); text-decoration: none; }
+  .header__link--active { color: var(--color-text); background: var(--color-accent-soft); }
+</style>

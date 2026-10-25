@@ -1,0 +1,34 @@
+import type { UsersPage } from "./UsersPage";
+import { Link } from "@helfy/helfy";
+import { PageHeader } from "@shared/ui/PageHeader/PageHeader";
+import { UserList } from "@modules/users";
+
+@template<UsersPage>() {
+  <div class="page">
+    <PageHeader eyebrow="Feature · server data" title="Users">
+      <code>UsersApi</code> serves cached queries over <code>MockUsersBackend</code> — a mock server with a delay.
+      Loading and errors are handled by <code>@safe … @wait … @fail</code> on this page, not by the list.
+    </PageHeader>
+    @safe {
+      <UserList />
+    } @wait {
+      <div class="users-skeleton">
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+        <div class="skeleton"></div>
+      </div>
+    } @fail (error, retry) {
+      <div class="card" role="alert">
+        <p>{error instanceof Error ? error.message : String(error)}</p>
+        <button type="button" class="btn" onclick={retry}>Try again</button>
+      </div>
+    }
+    <p class="muted">Try an error: <Link to="/users/42" label="a user that does not exist" />.</p>
+  </div>
+}
+
+<style scoped>
+  .users-skeleton { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+  .users-skeleton .skeleton { height: 92px; border-radius: 18px; }
+</style>

@@ -34,6 +34,9 @@ module.exports = {
     alias: {
       '@': path.resolve(__dirname, 'src'),
       '@context': path.resolve(__dirname, 'src/context'),
+      '@modules': path.resolve(__dirname, 'src/modules'),
+      '@shared': path.resolve(__dirname, 'src/shared'),
+      '@assets': path.resolve(__dirname, 'src/assets'),
       '@pages': path.resolve(__dirname, 'src/pages'),
       '@widgets': path.resolve(__dirname, 'src/widgets'),
     },
@@ -41,6 +44,7 @@ module.exports = {
   plugins: [
     new rspack.HtmlRspackPlugin({
       template: './index.html',
+      favicon: './assets/logo.svg',
       minify: !isDev,
     }),
     new rspack.CssExtractRspackPlugin({
@@ -57,6 +61,10 @@ module.exports = {
           rspack.CssExtractRspackPlugin.loader,
           { loader: 'css-loader', options: { importLoaders: 1 } },
         ],
+      },
+      {
+        test: /\.svg$/,
+        type: 'asset/resource',
       },
       {
         test: /\.hf$/,

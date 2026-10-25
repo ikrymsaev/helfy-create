@@ -1,0 +1,27 @@
+import type { UserProfile } from "./UserProfile";
+
+@template<UserProfile>() {
+  @if (this.user.data) {
+    <article class="profile card">
+      <span class="profile__avatar">{this.initials(this.user.data.name)}</span>
+      <div class="profile__text">
+        <span class="eyebrow">{this.user.data.role}</span>
+        <h1>{this.user.data.name}</h1>
+        <a href={"mailto:" + this.user.data.email}>{this.user.data.email}</a>
+        <p>{this.user.data.bio}</p>
+      </div>
+    </article>
+  }
+}
+
+<style scoped>
+  .profile { display: flex; gap: 28px; align-items: center; padding: 32px; max-width: 720px; }
+  .profile__avatar {
+    display: grid; place-items: center; flex-shrink: 0; width: 104px; height: 104px;
+    font-size: 2.2rem; font-weight: 800; color: var(--color-on-brand); background: var(--gradient-brand); border-radius: 50%;
+    box-shadow: 0 12px 40px -12px rgba(23, 182, 216, 0.6);
+  }
+  .profile__text { display: flex; flex-direction: column; gap: 6px; }
+  .profile h1 { font-size: 2rem; font-weight: 800; }
+  .profile p { margin: 8px 0 0; color: var(--color-text-muted); }
+</style>

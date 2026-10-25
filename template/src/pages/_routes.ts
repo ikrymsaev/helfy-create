@@ -1,10 +1,12 @@
 import { lazy, type RouteConfig } from "@helfy/helfy";
 import { HomePage } from "./HomePage";
-import { CounterPage } from "./CounterPage";
+import { TasksPage } from "./TasksPage";
+import { UsersPage } from "./UsersPage";
 
 export const routes: RouteConfig[] = [
   { path: "/", component: HomePage },
-  { path: "/counter", component: CounterPage },
+  { path: "/tasks", component: TasksPage },
+  { path: "/users", component: UsersPage },
   // A separate chunk, loaded on the first visit.
-  { path: "/about", component: lazy(() => import("./AboutPage").then((m) => m.AboutPage)) },
+  { path: "/users/:id", component: lazy(() => import("./UserPage").then((m) => m.UserPage)) },
 ];

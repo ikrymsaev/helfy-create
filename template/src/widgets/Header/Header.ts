@@ -8,4 +8,9 @@ export class Header {
   pathname?: string;
 
   links = NAV_LINKS;
+
+  isActive(to: string) {
+    const p = this.pathname ?? "/";
+    return to === "/" ? p === "/" : p === to || p.startsWith(to + "/");
+  }
 }

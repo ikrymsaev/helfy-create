@@ -1,6 +1,6 @@
 {
   "name": "helfy-create",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Create a new Helfy project",
   "bin": {
     "helfy-create": "./bin/create-helfy.js"
@@ -14,6 +14,7 @@
     "template/tsconfig.json",
     "template/rspack.config.js",
     "template/declaration.d.ts",
+    "template/ARCHITECTURE.md",
     "template/src"
   ],
   "keywords": [

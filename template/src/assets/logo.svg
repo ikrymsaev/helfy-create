@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="248" height="248" viewBox="0 0 248 248">
+  <defs>
+    <linearGradient id="linear-gradient-1" x1="45.6" y1="29.1" x2="45.6" y2="95.7" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2cc2cf"/>
+      <stop offset="1" stop-color="#178ee8"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="221" y1="102" x2="66" y2="222" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#0fc2d0"/>
+      <stop offset="0.45" stop-color="#17a2de"/>
+      <stop offset="1" stop-color="#1f7cef"/>
+    </linearGradient>
+    <clipPath id="clip-path-1">
+      <path d="M223.8 105.11 C171.11 107.56 129.03 122.31 78.5 153.5 C60.72 173.78 23.25 191.76 15 240.2 L63.8 240.2 C73.48 194.67 142.51 164.34 170.8 167.9 C169.52 194 166.62 209.09 163.5 240.2 L214.1 240.2 C221.09 193.45 223.66 150.33 226.15 107.49 C226.23 106.12 225.18 105.04 223.8 105.11 Z"/>
+    </clipPath>
+    <filter id="filter-1" filterUnits="userSpaceOnUse" x="9.3" y="3.256" width="234.672" height="245.444" color-interpolation-filters="sRGB"><feGaussianBlur in="SourceGraphic" stdDeviation="1.5"/></filter>
+    <linearGradient id="linear-gradient-3" x1="231" y1="12" x2="26" y2="237" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#12e2b0"/>
+      <stop offset="0.2" stop-color="#14d6bc"/>
+      <stop offset="0.45" stop-color="#17b6d8"/>
+      <stop offset="0.7" stop-color="#1a95ee"/>
+      <stop offset="1" stop-color="#3863fa"/>
+    </linearGradient>
+  </defs>
+  <title>Helfy</title>
+  <g id="Logo">
+    <path id="dot" d="M12.3 62.4 C12.3 44.009 27.209 29.1 45.6 29.1 C63.991 29.1 78.9 44.009 78.9 62.4 C78.9 80.791 63.991 95.7 45.6 95.7 C27.209 95.7 12.3 80.791 12.3 62.4 Z" fill="url(#linear-gradient-1)"/>
+    <path id="lower" d="M223.8 105.11 C171.11 107.56 129.03 122.31 78.5 153.5 C60.72 173.78 23.25 191.76 15 240.2 L63.8 240.2 C73.48 194.67 142.51 164.34 170.8 167.9 C169.52 194 166.62 209.09 163.5 240.2 L214.1 240.2 C218.528 193.344 222.369 150.493 226.15 107.49 C226.23 106.12 225.18 105.04 223.8 105.11 Z" fill="url(#linear-gradient-2)"/>
+    <g id="shadow" clip-path="url(#clip-path-1)">
+      <g filter="url(#filter-1)">
+        <path id="shadow-2" data-name="shadow" d="M235.29 9.81 C143.99 29.84 31.57 121.27 15.8 242.2 L19 242.2 C27.25 193.76 62.72 175.78 80.5 155.5 C123.89 106.03 171.93 79.45 229.21 71.82 C230.57 71.64 231.81 70.38 231.94 69.01 L237.46 11.79 C237.59 10.42 236.63 9.52 235.29 9.81 Z" fill="#0a3a8c" opacity="0.45"/>
+      </g>
+    </g>
+    <path id="upper" d="M233.29 7.81 C141.99 27.84 29.57 119.27 13.8 240.2 L17 240.2 C25.25 191.76 60.72 173.78 78.5 153.5 C121.89 104.03 169.93 77.45 227.21 69.82 C228.57 69.64 229.81 68.38 229.94 67.01 L235.46 9.79 C235.59 8.42 234.63 7.52 233.29 7.81 Z" fill="url(#linear-gradient-3)"/>
+  </g>
+</svg>
