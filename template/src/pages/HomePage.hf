@@ -1,6 +1,11 @@
 import type { HomePage } from "./HomePage";
 import { Link } from "@helfy/helfy";
 
+// A fragment: markup reused inside this file, inlined at compile time
+@fragment("window-dot") {
+  <span class="code__dot"></span>
+}
+
 @template<HomePage>() {
   <div class="page home">
     <section class="hero">
@@ -19,13 +24,13 @@ import { Link } from "@helfy/helfy";
       </div>
       <div class="code card">
         <div class="code__bar">
-          <span class="code__dot"></span>
-          <span class="code__dot"></span>
-          <span class="code__dot"></span>
+          <window-dot />
+          <window-dot />
+          <window-dot />
           <span class="code__file">AddTaskUseCase.ts</span>
         </div>
         <pre class="code__body">
-          @for (line of this.code) -> <span class={this.lineClass(line)}>{line || " "}</span>
+          @for (line of this.code) -> <span class="code__line" data-kind={this.lineKind(line)}>{line || " "}</span>
         </pre>
       </div>
     </section>
@@ -80,7 +85,7 @@ import { Link } from "@helfy/helfy";
   </div>
 }
 
-<style scoped>
+@styles {
   .home { gap: 72px; }
   .hero { display: grid; grid-template-columns: 1.1fr 1fr; gap: 40px; align-items: center; padding-top: 24px; }
   .hero__text { display: flex; flex-direction: column; gap: 18px; }
@@ -99,8 +104,8 @@ import { Link } from "@helfy/helfy";
     display: flex; flex-direction: column; margin: 0; padding: 18px 20px;
     font: 0.82rem/1.7 var(--font-mono); color: var(--color-text-muted); white-space: pre; overflow-x: auto;
   }
-  .code__line--decorator { color: var(--brand-cyan); }
-  .code__line--keyword { color: var(--color-text); }
+  .code__line[data-kind="decorator"] { color: var(--brand-cyan); }
+  .code__line[data-kind="keyword"] { color: var(--color-text); }
 
   .section { display: flex; flex-direction: column; gap: 20px; }
   .section__head { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; }
@@ -122,8 +127,8 @@ import { Link } from "@helfy/helfy";
     background: linear-gradient(var(--brand-cyan), transparent);
   }
   .step__num {
-    display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 32px;
-    font-weight: 700; font-size: 0.85rem; color: var(--color-on-brand); background: var(--gradient-brand); border-radius: 50%;
+    @add brand-badge from "../shared/styles/brand.hf";
+    width: 32px; height: 32px; font-size: 0.85rem;
   }
   .step__where { font-weight: 600; }
 
@@ -138,4 +143,4 @@ import { Link } from "@helfy/helfy";
     .layers { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.25rem; }
   }
-</style>
+}

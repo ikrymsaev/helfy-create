@@ -1,7 +1,7 @@
 import type { TaskItem } from "./TaskItem";
 
 @template<TaskItem>() {
-  <li class={this.props.task.done ? "task task--done" : "task"}>
+  <li class="task">
     <label class="task__check">
       <input
         type="checkbox"
@@ -17,7 +17,7 @@ import type { TaskItem } from "./TaskItem";
   </li>
 }
 
-<style scoped>
+@styles {
   .task {
     display: flex; align-items: center; gap: 10px; padding: 10px 12px;
     background: var(--color-surface-2); border: 1px solid transparent; border-radius: var(--radius);
@@ -36,11 +36,18 @@ import type { TaskItem } from "./TaskItem";
     border: solid var(--color-on-brand); border-width: 0 2px 2px 0; transform: rotate(45deg);
   }
   .task__check input:focus-visible + .task__box { box-shadow: 0 0 0 4px var(--color-accent-soft); }
-  .task--done .task__title { color: var(--color-text-subtle); text-decoration: line-through; }
+  .task__title {
+    transition: color 0.15s;
+    /* the state of the component goes straight into the styles — no class juggling in the markup */
+    @if (this.props.task.done) {
+      color: var(--color-text-subtle);
+      text-decoration: line-through;
+    }
+  }
   .task__remove {
     width: 28px; height: 28px; font-size: 1.2rem; line-height: 1; color: var(--color-text-subtle); cursor: pointer;
     background: transparent; border: 0; border-radius: 8px; opacity: 0; transition: opacity 0.15s;
   }
   .task:hover .task__remove, .task__remove:focus-visible { opacity: 1; }
   .task__remove:hover { color: var(--color-danger); background: var(--color-surface); }
-</style>
+}

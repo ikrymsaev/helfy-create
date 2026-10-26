@@ -18,7 +18,7 @@ import logo from "@assets/logo.svg";
   </div>
 }
 
-<style scoped>
+@styles {
   .header { display: flex; align-items: center; gap: 24px; height: 64px; }
   .header__brand {
     display: flex; align-items: center; gap: 10px;
@@ -34,4 +34,4 @@ import logo from "@assets/logo.svg";
   }
   .header__link:hover { color: var(--color-text); text-decoration: none; }
   .header__link--active { color: var(--color-text); background: var(--color-accent-soft); }
-</style>
+}

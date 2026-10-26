@@ -7,7 +7,7 @@
     "build": "cross-env NODE_ENV=production rspack build"
   },
   "dependencies": {
-    "@helfy/helfy": "^0.2.1"
+    "@helfy/helfy": "^0.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

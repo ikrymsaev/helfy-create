@@ -34,6 +34,13 @@ export class TaskBoard {
     return this.store.tasks.filter((t) => t.done === (this.filter === "done"));
   }
 
+  /** Share of done tasks, 0–100: the width of the progress bar in the styles */
+  @computed
+  get progress(): number {
+    const total = this.store.tasks.length;
+    return total ? Math.round(((total - this.store.left) / total) * 100) : 0;
+  }
+
   onAttached() {
     this.loadTasks.execute();
   }

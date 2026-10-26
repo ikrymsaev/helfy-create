@@ -3,6 +3,10 @@ import { Link } from "@helfy/helfy";
 import { PageHeader } from "@shared/ui/PageHeader/PageHeader";
 import { UserList } from "@modules/users";
 
+@fragment("user-skeleton") {
+  <div class="skeleton user-skeleton"></div>
+}
+
 @template<UsersPage>() {
   <div class="page">
     <PageHeader eyebrow="Feature · server data" title="Users">
@@ -13,10 +17,10 @@ import { UserList } from "@modules/users";
       <UserList />
     } @wait {
       <div class="users-skeleton">
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
-        <div class="skeleton"></div>
+        <user-skeleton />
+        <user-skeleton />
+        <user-skeleton />
+        <user-skeleton />
       </div>
     } @fail (error, retry) {
       <div class="card" role="alert">
@@ -28,7 +32,7 @@ import { UserList } from "@modules/users";
   </div>
 }
 
-<style scoped>
+@styles {
   .users-skeleton { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-  .users-skeleton .skeleton { height: 92px; border-radius: 18px; }
-</style>
+  .user-skeleton { height: 92px; border-radius: var(--radius-lg); }
+}

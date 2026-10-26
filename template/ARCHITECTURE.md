@@ -13,6 +13,9 @@ src/
   context/            @Context — state of a subtree (theme)
   pages/              one component per route; pages compose modules
   widgets/            parts of the shell: header, navigation, 404
+  shared/
+    ui/               components without business logic, used anywhere
+    styles/           shared stylesheets: .hf files with only @styles.global
   modules/            features — each with all its layers
     tasks/
       model/          types and interfaces, @Store
@@ -73,6 +76,20 @@ There is no manual registration: the compiler finds the decorated classes and wi
 implementation — keep tasks on a server instead of localStorage, use a real API instead of `MockUsersBackend` — write
 another class for the same interface and register it instead; nothing that depends on the interface changes. Use
 cases and stores are plain classes: in a test, create them with `new` and pass fakes.
+
+## Styles
+
+- `src/styles.css` — design tokens (colors, radii, fonts; the dark theme), the reset and a few global classes:
+  `.card`, `.btn`, `.input`, `.page`, `.skeleton`.
+- Everything else lives next to the markup, in the `@styles { }` block of the component's `.hf`. These styles are
+  scoped: they apply only inside the component.
+- State of the component goes into the styles, not into class strings: `{expr}` in a value
+  (`width: {this.progress}%` in `TaskBoard.hf`) and `@if` inside a rule (`TaskItem.hf`). State of an item in `@for`
+  is an attribute of its element: `aria-pressed={…}` and `.chip[aria-pressed="true"]` in `TaskBoard.hf`.
+- Styles used by several components go into a shared stylesheet in `src/shared/styles/` (`@styles.global` only).
+  A component takes its classes with `@add brand-badge from "…/brand.hf";` and the stylesheet is added to the page
+  once. The path is relative: `@`-aliases do not work there.
+- Markup repeated inside one template is a `@fragment` (`<window-dot />` in `HomePage.hf`).
 
 ## Adding a feature
 

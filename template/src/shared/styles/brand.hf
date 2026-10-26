@@ -1,0 +1,15 @@
+// A shared stylesheet: only @styles.global, no template. Components take its classes with
+// `@add brand-badge from "…/brand.hf";` — the stylesheet is added to the page once, by the first of them.
+
+@styles.global {
+  /* A circle in the logo gradient: avatars, step numbers */
+  .brand-badge {
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--color-on-brand);
+    background: var(--gradient-brand);
+    border-radius: 50%;
+  }
+}

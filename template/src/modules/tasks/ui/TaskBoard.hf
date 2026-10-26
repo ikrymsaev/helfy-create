@@ -15,13 +15,24 @@ import { TaskItem } from "./TaskItem";
         @for (f of this.filters; track f) {
           <button
             type="button"
-            class={f === this.filter ? "chip chip--active" : "chip"}
+            class="chip"
+            aria-pressed={f === this.filter}
             onclick={() => (this.filter = f)}
           >
             {f}
           </button>
         }
       </div>
+    </div>
+    <div
+      class="board__progress"
+      role="progressbar"
+      aria-label="Tasks done"
+      aria-valuemin="0"
+      aria-valuemax="100"
+      aria-valuenow={this.progress}
+    >
+      <div class="board__progress-fill"></div>
     </div>
 
     <ul class="board__list">
@@ -34,7 +45,7 @@ import { TaskItem } from "./TaskItem";
   </section>
 }
 
-<style scoped>
+@styles {
   .board { display: flex; flex-direction: column; gap: 16px; max-width: 640px; padding: 24px; }
   .board__form { display: flex; gap: 10px; }
   .board__input { flex: 1; }
@@ -47,10 +58,18 @@ import { TaskItem } from "./TaskItem";
     cursor: pointer; background: transparent; border: 0; border-radius: 999px;
   }
   .chip:hover { color: var(--color-text); }
-  .chip--active { color: var(--color-text); background: var(--color-surface); box-shadow: var(--shadow-card); }
+  .chip[aria-pressed="true"] { color: var(--color-text); background: var(--color-surface); box-shadow: var(--shadow-card); }
+  .board__progress { height: 6px; overflow: hidden; background: var(--color-surface-2); border-radius: 999px; }
+  .board__progress-fill {
+    width: {this.progress}%;   /* a CSS variable on the root, updated when progress changes */
+    height: 100%; background: var(--gradient-brand); border-radius: inherit; transition: width 0.3s, background 0.3s;
+    @if (this.progress === 100) {
+      background: var(--brand-green);
+    }
+  }
   .board__list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
   .board__empty {
     padding: 28px 0; color: var(--color-text-subtle); text-align: center;
     border: 1px dashed var(--color-border-strong); border-radius: var(--radius);
   }
-</style>
+}

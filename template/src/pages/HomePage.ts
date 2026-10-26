@@ -85,10 +85,11 @@ export class HomePage {
     "}",
   ];
 
-  lineClass(line: string) {
+  /** `data-kind` of a line for highlighting; `null` — the attribute is not rendered */
+  lineKind(line: string) {
     const t = line.trim();
-    if (t.startsWith("@")) return "code__line code__line--decorator";
-    if (/^(export|constructor|private|return|if|execute)\b/.test(t)) return "code__line code__line--keyword";
-    return "code__line";
+    if (t.startsWith("@")) return "decorator";
+    if (/^(export|constructor|private|return|if|execute)\b/.test(t)) return "keyword";
+    return null;
   }
 }

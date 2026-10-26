@@ -27,7 +27,8 @@ The Helfy extension adds `.hf` template support: highlighting, type checking of 
 go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
-`PATH` (`code`, `cursor`, `codium`, `windsurf`). To install or update it at any time:
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). The template uses `@styles` blocks, which need
+extension 0.1.3 or later. To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -48,7 +49,8 @@ A small app that shows how a Helfy project is structured — layers with one job
 - **Tasks** — local state through all the layers: `@View` → `@UseCase` → `@Store` and `@Service` (localStorage)
 - **Users** — server data: `@ApiClient` queries over a mock backend, loading and errors with `@safe / @wait / @fail`,
   a lazily loaded page with route params
-- Helfy + TypeScript + Rspack, `.hf` templates with scoped styles, a theme context, a custom 404 page
+- Helfy + TypeScript + Rspack, `.hf` templates with `@styles` (styles that follow component state, classes from a
+  shared stylesheet with `@add`) and `@fragment`, a theme context, a custom 404 page
 - `ARCHITECTURE.md` — the structure and the rules of each layer
 - `npm run dev` — development server (port 3000), `npm run build` — production build
 
@@ -58,6 +60,7 @@ src/
   context/            theme
   pages/              one component per route; pages compose modules
   widgets/            header, navigation, footer, 404
+  shared/             UI without business logic, shared stylesheets
   modules/
     tasks/            model (@Store), services, use-cases, ui
     users/            api (@ApiClient + mock backend), ui
