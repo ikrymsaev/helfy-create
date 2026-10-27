@@ -18,8 +18,21 @@ npx helfy-create
 
 **Options:**
 - `--skip-install` — create the project without running `npm install` (e.g. for a custom registry or offline)
+- `--lint` / `--no-lint` — add or leave out ESLint and Prettier without asking (added by default)
 - `--skip-extension` — do not offer to install the editor extension
 - `--install-extension` — only install the editor extension, without creating a project
+
+## Linting and formatting
+
+`helfy-create` asks whether to add ESLint and Prettier (yes by default):
+
+- `npm run lint` — ESLint with [`@helfy/helfy-lint`](https://www.npmjs.com/package/@helfy/helfy-lint): the rules of the
+  layers (`@Store` / `@Service` / `@UseCase` / `@View`), deep imports from `@helfy/helfy`
+- `npm run format` / `npm run format:check` — Prettier for `.ts`, `.css`, `.html` and `.hf` (the `.hf` formatter is
+  the same as in the editor extension)
+
+The worst violations — `@effect` on a `@Store`, `@state` on a `@Service` and the like — fail the build with or without
+the linters: the check is part of `@helfy/helfy/babel-preset`.
 
 ## Editor setup (VS Code / Cursor)
 
@@ -53,6 +66,7 @@ A small app that shows how a Helfy project is structured — layers with one job
   shared stylesheet with `@add`) and `@fragment`, a theme context, a custom 404 page
 - `ARCHITECTURE.md` — the structure and the rules of each layer
 - `npm run dev` — development server (port 3000), `npm run build` — production build
+- `npm run lint`, `npm run format` — ESLint and Prettier, if you keep them
 
 ```
 src/

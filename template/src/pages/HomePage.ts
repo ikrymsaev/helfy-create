@@ -55,12 +55,18 @@ export class HomePage {
   ];
 
   readonly steps: Step[] = [
-    { where: "TaskBoard · view", what: "On submit calls addTask.execute(title). Nothing else — no rules in the view." },
+    {
+      where: "TaskBoard · view",
+      what: "On submit calls addTask.execute(title). Nothing else — no rules in the view.",
+    },
     {
       where: "AddTaskUseCase · use case",
       what: "Checks the rules: empty, too long, a duplicate. Returns an error the view shows — or goes on.",
     },
-    { where: "TaskStore + ITaskStorage", what: "The task goes into the store; the list is saved by LocalTaskStorage." },
+    {
+      where: "TaskStore + ITaskStorage",
+      what: "The task goes into the store; the list is saved by LocalTaskStorage.",
+    },
     {
       where: "Signals",
       what: "Only what reads TaskStore.tasks updates: the new row and the counter. No re-render of the page.",

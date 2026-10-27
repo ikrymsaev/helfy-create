@@ -9,7 +9,10 @@ import type { AddTaskResult, IAddTaskUseCase } from "./types";
  */
 @UseCase<IAddTaskUseCase>()
 export class AddTaskUseCase implements IAddTaskUseCase {
-  constructor(private store: ITaskStore, private storage: ITaskStorage) {}
+  constructor(
+    private store: ITaskStore,
+    private storage: ITaskStorage,
+  ) {}
 
   execute(title: string): AddTaskResult {
     const text = title.trim();

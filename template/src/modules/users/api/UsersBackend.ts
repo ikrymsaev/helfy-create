@@ -8,10 +8,34 @@ export interface IUsersBackend {
 }
 
 const USERS: User[] = [
-  { id: "1", name: "Ada Lovelace", role: "Analyst", email: "ada@example.com", bio: "Wrote the first program before the first computer." },
-  { id: "2", name: "Alan Turing", role: "Researcher", email: "alan@example.com", bio: "Asked whether machines can think." },
-  { id: "3", name: "Grace Hopper", role: "Engineer", email: "grace@example.com", bio: "Built the first compiler and found the first bug." },
-  { id: "4", name: "Linus Torvalds", role: "Maintainer", email: "linus@example.com", bio: "Talk is cheap. Show me the code." },
+  {
+    id: "1",
+    name: "Ada Lovelace",
+    role: "Analyst",
+    email: "ada@example.com",
+    bio: "Wrote the first program before the first computer.",
+  },
+  {
+    id: "2",
+    name: "Alan Turing",
+    role: "Researcher",
+    email: "alan@example.com",
+    bio: "Asked whether machines can think.",
+  },
+  {
+    id: "3",
+    name: "Grace Hopper",
+    role: "Engineer",
+    email: "grace@example.com",
+    bio: "Built the first compiler and found the first bug.",
+  },
+  {
+    id: "4",
+    name: "Linus Torvalds",
+    role: "Maintainer",
+    email: "linus@example.com",
+    bio: "Talk is cheap. Show me the code.",
+  },
 ];
 
 const delay = (ms: number) => new Promise((r) => setTimeout(r, ms));

@@ -1,5 +1,5 @@
 /* Helfy Starter — design tokens and base styles. Colors come from the Helfy logo. */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap");
 
 :root {
   /* Brand — the logo gradient */
@@ -7,7 +7,12 @@
   --brand-cyan: #17b6d8;
   --brand-sky: #1a95ee;
   --brand-blue: #3863fa;
-  --gradient-brand: linear-gradient(135deg, var(--brand-green) 0%, var(--brand-cyan) 45%, var(--brand-blue) 100%);
+  --gradient-brand: linear-gradient(
+    135deg,
+    var(--brand-green) 0%,
+    var(--brand-cyan) 45%,
+    var(--brand-blue) 100%
+  );
 
   /* Light theme */
   --color-bg: #f5f8fc;
@@ -29,8 +34,8 @@
   --radius-sm: 8px;
   --radius: 12px;
   --radius-lg: 18px;
-  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
   --content-width: 1080px;
 }
 
@@ -75,7 +80,7 @@ body {
 
 /* Two soft glows in the logo colors behind the page */
 body::before {
-  content: '';
+  content: "";
   position: fixed;
   inset: -20vh -10vw auto;
   height: 70vh;
@@ -172,7 +177,10 @@ code {
   background: var(--color-surface);
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
-  transition: border-color 0.15s, box-shadow 0.15s, transform 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s,
+    transform 0.15s;
 }
 
 .btn:hover {
@@ -200,7 +208,9 @@ code {
   border: 1px solid var(--color-border-strong);
   border-radius: 999px;
   outline: none;
-  transition: border-color 0.15s, box-shadow 0.15s;
+  transition:
+    border-color 0.15s,
+    box-shadow 0.15s;
 }
 
 .input:focus {
@@ -215,7 +225,12 @@ code {
 /* Loading placeholder */
 .skeleton {
   border-radius: var(--radius-sm);
-  background: linear-gradient(90deg, var(--color-surface-2) 25%, var(--color-border) 50%, var(--color-surface-2) 75%);
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-2) 25%,
+    var(--color-border) 50%,
+    var(--color-surface-2) 75%
+  );
   background-size: 200% 100%;
   animation: skeleton 1.2s ease-in-out infinite;
 }

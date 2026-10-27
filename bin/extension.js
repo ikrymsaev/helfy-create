@@ -3,8 +3,8 @@
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
-const readline = require("readline");
 const { execSync } = require("child_process");
+const { ask } = require("./ask");
 
 // The latest release of the Helfy extension (VS Code / Cursor), attached under a fixed name.
 // HELFY_VSIX_URL overrides it: another URL or a local .vsix file.
@@ -36,16 +36,6 @@ function findEditors() {
       return false;
     }
   });
-}
-
-function ask(question) {
-  const rl = readline.createInterface({ input: process.stdin, output: process.stdout });
-  return new Promise((resolve) =>
-    rl.question(question, (answer) => {
-      rl.close();
-      resolve(!/^n/i.test(answer.trim()));
-    })
-  );
 }
 
 async function downloadVsix() {

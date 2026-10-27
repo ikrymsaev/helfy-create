@@ -5,7 +5,10 @@ import type { IRemoveTaskUseCase } from "./types";
 
 @UseCase<IRemoveTaskUseCase>()
 export class RemoveTaskUseCase implements IRemoveTaskUseCase {
-  constructor(private store: ITaskStore, private storage: ITaskStorage) {}
+  constructor(
+    private store: ITaskStore,
+    private storage: ITaskStorage,
+  ) {}
 
   execute(id: string) {
     this.store.remove(id);

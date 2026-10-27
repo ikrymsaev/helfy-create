@@ -5,6 +5,7 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 const { installExtension } = require("./extension");
+const { wantLint, removeLint } = require("./lint");
 
 const args = process.argv.slice(2);
 const skipInstall = args.includes("--skip-install");
@@ -23,8 +24,6 @@ if (fs.existsSync(root)) {
   console.error(`Error: Directory "${projectName}" already exists.`);
   process.exit(1);
 }
-
-console.log(`Creating Helfy project in ${projectName}...\n`);
 
 // Present only when the template is installed locally (they are not in the published package).
 const SKIP = new Set(["node_modules", "dist", ".helfy"]);
@@ -50,15 +49,19 @@ function copyDir(src, dest) {
   }
 }
 
-copyDir(templateDir, root);
-
-if (!skipInstall) {
-  console.log("Installing dependencies...\n");
-  process.chdir(root);
-  execSync("npm install", { stdio: "inherit" });
-}
-
 (async () => {
+  const lint = await wantLint(args);
+
+  console.log(`\nCreating Helfy project in ${projectName}...\n`);
+  copyDir(templateDir, root);
+  if (!lint) removeLint(root);
+
+  if (!skipInstall) {
+    console.log("Installing dependencies...\n");
+    process.chdir(root);
+    execSync("npm install", { stdio: "inherit" });
+  }
+
   if (!skipExtension) {
     console.log("");
     await installExtension("ask");
@@ -70,4 +73,9 @@ if (!skipInstall) {
     console.log("  npm install");
   }
   console.log("  npm run dev\n");
+  if (lint) {
+    console.log("Architecture rules and formatting:\n");
+    console.log("  npm run lint");
+    console.log("  npm run format\n");
+  }
 })();

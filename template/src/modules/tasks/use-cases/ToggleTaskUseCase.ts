@@ -5,7 +5,10 @@ import type { IToggleTaskUseCase } from "./types";
 
 @UseCase<IToggleTaskUseCase>()
 export class ToggleTaskUseCase implements IToggleTaskUseCase {
-  constructor(private store: ITaskStore, private storage: ITaskStorage) {}
+  constructor(
+    private store: ITaskStore,
+    private storage: ITaskStorage,
+  ) {}
 
   execute(id: string) {
     this.store.toggle(id);
