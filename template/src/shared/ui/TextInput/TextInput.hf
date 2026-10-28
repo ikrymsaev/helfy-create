@@ -1,0 +1,10 @@
+import type { TextInput } from "./TextInput";
+
+@template<TextInput>() {
+  <input
+    @bind(this.value)
+    class={this.props.class ?? "input"}
+    type="text"
+    placeholder={this.props.placeholder}
+  />
+}

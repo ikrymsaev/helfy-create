@@ -26,8 +26,10 @@ npx helfy-create
 
 `helfy-create` asks whether to add ESLint and Prettier (yes by default):
 
-- `npm run lint` — ESLint with [`@helfy/helfy-lint`](https://www.npmjs.com/package/@helfy/helfy-lint): the rules of the
-  layers (`@Store` / `@Service` / `@UseCase` / `@View`), deep imports from `@helfy/helfy`
+- `npm run lint` — ESLint flat config: `@eslint/js` recommended, [`typescript-eslint`](https://typescript-eslint.io/)
+  recommended, [`@helfy/helfy-lint`](https://www.npmjs.com/package/@helfy/helfy-lint) layer rules
+  (`@Store` / `@Service` / `@UseCase` / `@View`, deep imports from `@helfy/helfy`), and Prettier as warnings via
+  `eslint-plugin-prettier`
 - `npm run format` / `npm run format:check` — Prettier for `.ts`, `.css`, `.html` and `.hf` (the `.hf` formatter is
   the same as in the editor extension)
 
@@ -41,7 +43,7 @@ go-to-definition, completion, diagnostics and formatting. It is not in the Marke
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
 `PATH` (`code`, `cursor`, `codium`, `windsurf`). The template uses `@styles` blocks, which need
-extension 0.1.3 or later. To install or update it at any time:
+extension 0.1.5 or later. To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -59,14 +61,16 @@ The old `helfy.helfy-syntax` extension (directives in `.tsx`) conflicts with it 
 A small app that shows how a Helfy project is structured — layers with one job each, wired by dependency injection:
 
 - **Overview** — how the app is built: the layers, their rules, the path of one click through them
-- **Tasks** — local state through all the layers: `@View` → `@UseCase` → `@Store` and `@Service` (localStorage)
-- **Users** — server data: `@ApiClient` queries over a mock backend, loading and errors with `@safe / @wait / @fail`,
-  a lazily loaded page with route params
-- Helfy + TypeScript + Rspack, `.hf` templates with `@styles` (styles that follow component state, classes from a
-  shared stylesheet with `@add`) and `@fragment`, a theme context, a custom 404 page
+- **Tasks** — local state through all the layers: `@View` → `@UseCase` → `@Store` and `@Service` (localStorage);
+  filter in the URL (`@search`), `@bind:value` input, named style `@bind`
+- **Users** — server data over a mock backend: `@useQuery` with `@safe / @wait / @fail`, optimistic
+  `@useMutation`, `@useInfiniteQuery`, lazy detail with `@params`, `@onFail` / `@logger`
+- **Settings** — `@Form` / `@field` / `@useForm`, `$field` wrappers, `@ref` / `@expose` focus
+- Helfy + TypeScript + Rspack, `.hf` templates with `@styles` (BEM nesting via `&__` / `&:hover`, state-driven
+  values, classes from a shared stylesheet with `@add`) and `@fragment`, a theme context, a custom 404 page
 - `ARCHITECTURE.md` — the structure and the rules of each layer
 - `npm run dev` — development server (port 3000), `npm run build` — production build
-- `npm run lint`, `npm run format` — ESLint and Prettier, if you keep them
+- `npm run lint`, `npm run format` — ESLint (recommended + TypeScript + Helfy) and Prettier, if you keep them
 
 ```
 src/
@@ -78,4 +82,5 @@ src/
   modules/
     tasks/            model (@Store), services, use-cases, ui
     users/            api (@ApiClient + mock backend), ui
+    settings/         @Form, use cases, profile storage, ui
 ```

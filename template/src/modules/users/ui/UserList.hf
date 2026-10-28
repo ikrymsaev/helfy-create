@@ -19,16 +19,39 @@ import { Link } from "@helfy/helfy";
 
 @styles {
   .users {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px;
-    margin: 0; padding: 0; list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
   }
-  .user { display: flex; align-items: center; gap: 14px; color: var(--color-text); transition: border-color 0.2s, transform 0.2s; }
-  .user:hover { text-decoration: none; border-color: var(--brand-cyan); transform: translateY(-2px); }
+  .user {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: var(--color-text);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .user:hover {
+    text-decoration: none;
+    border-color: var(--brand-cyan);
+    transform: translateY(-2px);
+  }
   .avatar {
     @add brand-badge from "../../../shared/styles/brand.hf";
-    width: 48px; height: 48px;
+    width: 48px;
+    height: 48px;
   }
-  .user__text { display: flex; flex-direction: column; }
-  .user__name { font-weight: 600; }
-  .user__role { font-size: 0.85rem; color: var(--color-text-muted); }
+  .user__text {
+    display: flex;
+    flex-direction: column;
+  }
+  .user__name {
+    font-weight: 600;
+  }
+  .user__role {
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+  }
 }

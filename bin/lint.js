@@ -4,14 +4,16 @@ const fs = require("fs");
 const path = require("path");
 const { ask } = require("./ask");
 
-// What the template adds for ESLint (@helfy/helfy-lint rules) and Prettier (.hf formatting included).
+// What the template adds for ESLint (recommended + TypeScript + Helfy) and Prettier (.hf included).
 const FILES = ["eslint.config.mjs", "prettier.config.cjs", ".prettierignore"];
 const DEV_DEPENDENCIES = [
+  "@eslint/js",
   "@helfy/helfy-lint",
-  "@typescript-eslint/parser",
   "eslint",
   "eslint-config-prettier",
+  "eslint-plugin-prettier",
   "prettier",
+  "typescript-eslint",
 ];
 const SCRIPTS = ["lint", "format", "format:check"];
 
@@ -21,7 +23,9 @@ const SCRIPTS = ["lint", "format", "format:check"];
 async function wantLint(args) {
   if (args.includes("--no-lint")) return false;
   if (args.includes("--lint") || !process.stdin.isTTY) return true;
-  return ask("Add ESLint with Helfy architecture rules and Prettier (with .hf formatting)? (Y/n) ");
+  return ask(
+    "Add ESLint (recommended + TypeScript + Helfy) and Prettier (with .hf formatting)? (Y/n) ",
+  );
 }
 
 /** Removes the linters from a created project. */

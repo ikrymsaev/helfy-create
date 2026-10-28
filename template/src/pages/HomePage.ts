@@ -13,6 +13,11 @@ interface Step {
   what: string;
 }
 
+interface AlsoItem {
+  where: string;
+  what: string;
+}
+
 @View({ template })
 export class HomePage {
   readonly layers: Layer[] = [
@@ -42,15 +47,56 @@ export class HomePage {
     },
     {
       name: "@ApiClient",
-      role: "Server data as queries: cache, loading, errors, refetch.",
-      rule: "Components take queries with @useQuery; errors go to @safe … @fail.",
+      role: "Server data as queries, mutations and infinite lists.",
+      rule: "Components take them with @useQuery / @useMutation / @useInfiniteQuery.",
       file: "modules/users/api/UsersApi.ts",
+    },
+    {
+      name: "@Form",
+      role: "Field state for a form: value, error, touched.",
+      rule: "Provided as a context; the view takes it with @useForm.",
+      file: "modules/settings/forms/ProfileFormContext.ts",
     },
     {
       name: "@Context",
       role: "State of a subtree, shared without props.",
       rule: "Taken with @useCtx by any component below it.",
       file: "context/ThemeContext.ts",
+    },
+  ];
+
+  readonly also: AlsoItem[] = [
+    {
+      where: "@search / @router",
+      what: "Task filter in the query string — TaskBoard.ts",
+    },
+    {
+      where: "@bind:value / @binded",
+      what: "Named two-way bind on TextInput — shared/ui/TextInput",
+    },
+    {
+      where: "style @bind",
+      what: "Named CSS expression for the progress bar — TaskBoard.hf",
+    },
+    {
+      where: "BEM & nesting",
+      what: "&__item / &:hover under @styles — ProfileForm, NotesBoard, TaskBoard",
+    },
+    {
+      where: "@ref / @expose",
+      what: "Focus the name field on open — settings/ui/TextField.ts",
+    },
+    {
+      where: "@onFail / @logger",
+      what: "Log a missing user before @fail — UserPage.ts",
+    },
+    {
+      where: "optimistic mutate",
+      what: "Note appears before the mock answers — users/ui/NotesBoard.ts",
+    },
+    {
+      where: "@useInfiniteQuery",
+      what: "Paginated activity feed — users/ui/ActivityFeed.ts",
     },
   ];
 

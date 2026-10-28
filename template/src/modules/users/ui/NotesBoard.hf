@@ -1,0 +1,113 @@
+import type { NotesBoard } from "./NotesBoard";
+
+@template<NotesBoard>() {
+  <section class="notes card">
+    <div class="notes__head">
+      <h2>Team notes</h2>
+      <p class="muted">
+        <code>@useMutation</code> + optimistic cache update. The note shows up at once;
+        if the mock fails, the list rolls back.
+      </p>
+    </div>
+
+    <form class="notes__form" onsubmit={this.submit}>
+      <input @bind(this.title) class="input" placeholder="A note for the team" autocomplete="off" />
+      <label class="notes__fail">
+        <input @bind(this.fail) type="checkbox" />
+        Simulate fail
+      </label>
+      <button type="submit" class="btn btn--primary" disabled={this.addNote.isPending}>
+        {this.addNote.isPending ? "Saving…" : "Add note"}
+      </button>
+    </form>
+
+    @if (this.lastError) -> <p class="notes__error" role="alert">{this.lastError}</p>
+
+    @if (this.notes.isLoading && !this.notes.data) {
+      <p class="muted">Loading notes…</p>
+    } @elseif (this.notes.isError) {
+      <p class="notes__error" role="alert">{String(this.notes.error)}</p>
+    } @else {
+      <ul class="notes__list">
+        @for (note of this.notes.data ?? []; track note.id) {
+          <li class="notes__item" data-pending={note.pending ? "true" : undefined}>
+            <span>{note.title}</span>
+            @if (note.pending) -> <span class="muted">saving…</span>
+          </li>
+        } @empty {
+          <li class="muted">No notes yet.</li>
+        }
+      </ul>
+    }
+  </section>
+}
+
+@styles {
+  .notes {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+
+    &__head {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      h2 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    }
+    &__form {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+
+      .input {
+        flex: 1;
+        min-width: 180px;
+      }
+    }
+    &__fail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.9rem;
+      color: var(--color-text-muted);
+    }
+    &__error {
+      margin: 0;
+      color: var(--color-danger);
+      font-size: 0.9rem;
+    }
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      background: var(--color-surface-2);
+
+      &[data-pending="true"] {
+        border-style: dashed;
+        color: var(--color-text-muted);
+      }
+    }
+  }
+}

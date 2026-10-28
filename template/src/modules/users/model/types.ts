@@ -6,6 +6,22 @@ export interface User {
   bio: string;
 }
 
+/** Team note — used for @useMutation optimistic updates. */
+export interface Note {
+  id: string;
+  title: string;
+  pending?: boolean;
+}
+
+export type AddNoteVars = { clientId: string; title: string; fail?: boolean };
+
+/** Activity feed item — used for @useInfiniteQuery pagination. */
+export interface ActivityItem {
+  id: string;
+  text: string;
+  at: string;
+}
+
 /** "Ada Lovelace" → "AL" */
 export function initials(name: string): string {
   return name

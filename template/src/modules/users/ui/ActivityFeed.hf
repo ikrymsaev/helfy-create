@@ -1,0 +1,92 @@
+import type { ActivityFeed } from "./ActivityFeed";
+
+@template<ActivityFeed>() {
+  <section class="feed card">
+    <div class="feed__head">
+      <h2>Activity</h2>
+      <p class="muted">
+        <code>@useInfiniteQuery</code> pages the mock list. <code>loadMore()</code> fetches the next page.
+      </p>
+    </div>
+
+    @if (this.activity.isLoading && this.activity.data.length === 0) {
+      <p class="muted">Loading activity…</p>
+    } @elseif (this.activity.isError) {
+      <p class="feed__error" role="alert">{String(this.activity.error)}</p>
+    } @else {
+      <ul class="feed__list">
+        @for (item of this.activity.data; track item.id) {
+          <li class="feed__item">
+            <span>{item.text}</span>
+            <span class="muted">{item.at}</span>
+          </li>
+        }
+      </ul>
+      @if (this.activity.hasNextPage) {
+        <button
+          type="button"
+          class="btn"
+          disabled={this.activity.isFetchingNext}
+          onclick={() => this.activity.loadMore()}
+        >
+          {this.activity.isFetchingNext ? "Loading…" : "Load more"}
+        </button>
+      } @else {
+        <p class="muted feed__end">All {this.activity.data.length} events loaded.</p>
+      }
+    }
+  </section>
+}
+
+@styles {
+  .feed {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+  }
+  .feed__head {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .feed__head h2 {
+    margin: 0;
+    font-size: 1.15rem;
+    font-weight: 700;
+  }
+  .feed__head p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  .feed__error {
+    margin: 0;
+    color: var(--color-danger);
+  }
+  .feed__list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+  .feed__item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.95rem;
+  }
+  .feed__item:last-child {
+    border-bottom: 0;
+  }
+  .feed__end {
+    margin: 0;
+    font-size: 0.85rem;
+  }
+  .feed .btn {
+    align-self: flex-start;
+  }
+}

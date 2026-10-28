@@ -1,0 +1,98 @@
+import type { ProfileForm } from "./ProfileForm";
+import { TextField } from "./TextField";
+
+@template<ProfileForm>() {
+  <form class="profile card" onsubmit={this.submit}>
+    <p class="muted profile__hint">
+      <code>@Form</code> + <code>{"@field"}</code>, <code>$field</code>, <code>{"@ref"}</code> /
+      <code>@expose</code>. Styles nest BEM with <code>&__hint</code> under <code>@styles</code>.
+    </p>
+
+    <TextField
+      @ref(this.nameField)
+      label="Display name"
+      placeholder="Ada Lovelace"
+      autocomplete="nickname"
+      $field={this.form.displayName}
+    />
+    <TextField
+      label="Email"
+      type="email"
+      placeholder="ada@example.com"
+      autocomplete="email"
+      $field={this.form.email}
+    />
+
+    <label class="check">
+      <input @field(this.form.digest) type="checkbox" />
+      <span>Email me a weekly digest</span>
+    </label>
+
+    <div class="profile__actions">
+      <button
+        type="submit"
+        class="submit-btn"
+        disabled={!this.form.canSubmit}
+      >
+        Save profile
+      </button>
+      @if (this.saved) -> <span class="profile__ok">Saved</span>
+      @if (this.error) -> <span class="profile__err" role="alert">{this.error}</span>
+    </div>
+  </form>
+}
+
+@styles {
+  .btn--disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+  }
+
+  .submit-btn {
+    @add "btn btn--primary";
+    @if (!this.form.canSubmit) {
+      @add btn--disabled;
+    }
+  }
+
+  .profile {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    max-width: 420px;
+    padding: 24px;
+
+    &__hint {
+      margin: 0;
+      font-size: 0.9rem;
+    }
+    &__actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    &__ok {
+      font-size: 0.9rem;
+      color: var(--brand-green);
+      font-weight: 500;
+    }
+    &__err {
+      font-size: 0.9rem;
+      color: var(--color-danger);
+    }
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    cursor: pointer;
+
+    input {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--brand-cyan);
+    }
+  }
+}

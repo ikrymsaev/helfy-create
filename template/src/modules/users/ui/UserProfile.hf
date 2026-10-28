@@ -15,13 +15,32 @@ import type { UserProfile } from "./UserProfile";
 }
 
 @styles {
-  .profile { display: flex; gap: 28px; align-items: center; padding: 32px; max-width: 720px; }
+  .profile {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    padding: 32px;
+    max-width: 720px;
+  }
   .profile__avatar {
     @add brand-badge from "../../../shared/styles/brand.hf";
-    width: 104px; height: 104px; font-size: 2.2rem; font-weight: 800;
+    width: 104px;
+    height: 104px;
+    font-size: 2.2rem;
+    font-weight: 800;
     box-shadow: 0 12px 40px -12px rgba(23, 182, 216, 0.6);
   }
-  .profile__text { display: flex; flex-direction: column; gap: 6px; }
-  .profile h1 { font-size: 2rem; font-weight: 800; }
-  .profile p { margin: 8px 0 0; color: var(--color-text-muted); }
+  .profile__text {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .profile h1 {
+    font-size: 2rem;
+    font-weight: 800;
+  }
+  .profile p {
+    margin: 8px 0 0;
+    color: var(--color-text-muted);
+  }
 }

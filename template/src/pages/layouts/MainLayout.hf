@@ -19,14 +19,30 @@ import type { MainLayout } from "./MainLayout";
 }
 
 @styles {
-  .layout { display: flex; flex-direction: column; min-height: 100vh; }
+  .layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+  }
   .layout__header {
-    position: sticky; top: 0; z-index: 10;
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: color-mix(in srgb, var(--color-bg) 75%, transparent);
     border-bottom: 1px solid var(--color-border);
     backdrop-filter: blur(14px);
   }
-  .layout__main { flex: 1; }
-  .container { width: 100%; max-width: var(--content-width); margin: 0 auto; padding: 0 24px; }
-  .layout__footer { padding: 24px 0; border-top: 1px solid var(--color-border); }
+  .layout__main {
+    flex: 1;
+  }
+  .container {
+    width: 100%;
+    max-width: var(--content-width);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+  .layout__footer {
+    padding: 24px 0;
+    border-top: 1px solid var(--color-border);
+  }
 }

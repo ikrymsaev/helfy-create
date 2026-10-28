@@ -19,35 +19,90 @@ import type { TaskItem } from "./TaskItem";
 
 @styles {
   .task {
-    display: flex; align-items: center; gap: 10px; padding: 10px 12px;
-    background: var(--color-surface-2); border: 1px solid transparent; border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    background: var(--color-surface-2);
+    border: 1px solid transparent;
+    border-radius: var(--radius);
     transition: border-color 0.15s;
-  }
-  .task:hover { border-color: var(--color-border); }
-  .task__check { display: flex; flex: 1; align-items: center; gap: 12px; cursor: pointer; }
-  .task__check input { position: absolute; opacity: 0; pointer-events: none; }
-  .task__box {
-    position: relative; flex-shrink: 0; width: 20px; height: 20px;
-    border: 2px solid var(--color-border-strong); border-radius: 6px; transition: background 0.15s, border-color 0.15s;
-  }
-  .task__check input:checked + .task__box { background: var(--gradient-brand); border-color: transparent; }
-  .task__check input:checked + .task__box::after {
-    content: ""; position: absolute; left: 5px; top: 1px; width: 5px; height: 10px;
-    border: solid var(--color-on-brand); border-width: 0 2px 2px 0; transform: rotate(45deg);
-  }
-  .task__check input:focus-visible + .task__box { box-shadow: 0 0 0 4px var(--color-accent-soft); }
-  .task__title {
-    transition: color 0.15s;
-    /* the state of the component goes straight into the styles — no class juggling in the markup */
-    @if (this.props.task.done) {
+
+    &:hover {
+      border-color: var(--color-border);
+    }
+    &__check {
+      display: flex;
+      flex: 1;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+
+      input {
+        position: absolute;
+        opacity: 0;
+        pointer-events: none;
+
+        &:checked + .task__box {
+          background: var(--gradient-brand);
+          border-color: transparent;
+        }
+        &:checked + .task__box::after {
+          content: "";
+          position: absolute;
+          left: 5px;
+          top: 1px;
+          width: 5px;
+          height: 10px;
+          border: solid var(--color-on-brand);
+          border-width: 0 2px 2px 0;
+          transform: rotate(45deg);
+        }
+        &:focus-visible + .task__box {
+          box-shadow: 0 0 0 4px var(--color-accent-soft);
+        }
+      }
+    }
+    &__box {
+      position: relative;
+      flex-shrink: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--color-border-strong);
+      border-radius: 6px;
+      transition: background 0.15s, border-color 0.15s;
+    }
+    &__title {
+      transition: color 0.15s;
+      /* the state of the component goes straight into the styles — no class juggling in the markup */
+      @if (this.props.task.done) {
+        color: var(--color-text-subtle);
+        text-decoration: line-through;
+      }
+    }
+    &__remove {
+      width: 28px;
+      height: 28px;
+      font-size: 1.2rem;
+      line-height: 1;
       color: var(--color-text-subtle);
-      text-decoration: line-through;
+      cursor: pointer;
+      background: transparent;
+      border: 0;
+      border-radius: 8px;
+      opacity: 0;
+      transition: opacity 0.15s;
+
+      &:hover {
+        color: var(--color-danger);
+        background: var(--color-surface);
+      }
+      &:focus-visible {
+        opacity: 1;
+      }
+    }
+    &:hover &__remove {
+      opacity: 1;
     }
   }
-  .task__remove {
-    width: 28px; height: 28px; font-size: 1.2rem; line-height: 1; color: var(--color-text-subtle); cursor: pointer;
-    background: transparent; border: 0; border-radius: 8px; opacity: 0; transition: opacity 0.15s;
-  }
-  .task:hover .task__remove, .task__remove:focus-visible { opacity: 1; }
-  .task__remove:hover { color: var(--color-danger); background: var(--color-surface); }
 }

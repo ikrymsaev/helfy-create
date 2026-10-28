@@ -1,17 +1,18 @@
 import type { UsersPage } from "./UsersPage";
 import { Link } from "@helfy/helfy";
 import { PageHeader } from "@shared/ui/PageHeader/PageHeader";
-import { UserList } from "@modules/users";
+import { UserList, NotesBoard, ActivityFeed } from "@modules/users";
 
 @fragment("user-skeleton") {
   <div class="skeleton user-skeleton"></div>
 }
 
 @template<UsersPage>() {
-  <div class="page">
+  <div class="page users-page">
     <PageHeader eyebrow="Feature · server data" title="Users">
-      <code>UsersApi</code> serves cached queries over <code>MockUsersBackend</code> — a mock server with a delay.
-      Loading and errors are handled by <code>@safe … @wait … @fail</code> on this page, not by the list.
+      <code>UsersApi</code> serves cached queries, mutations and an infinite feed over
+      <code>MockUsersBackend</code>. Loading and errors for the list are handled by
+      <code>@safe … @wait … @fail</code> on this page.
     </PageHeader>
     @safe {
       <UserList />
@@ -29,10 +30,23 @@ import { UserList } from "@modules/users";
       </div>
     }
     <p class="muted">Try an error: <Link to="/users/42" label="a user that does not exist" />.</p>
+
+    <NotesBoard />
+    <ActivityFeed />
   </div>
 }
 
 @styles {
-  .users-skeleton { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-  .user-skeleton { height: 92px; border-radius: var(--radius-lg); }
+  .users-page {
+    gap: 40px;
+  }
+  .users-skeleton {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  .user-skeleton {
+    height: 92px;
+    border-radius: var(--radius-lg);
+  }
 }

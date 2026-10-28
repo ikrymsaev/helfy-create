@@ -22,8 +22,18 @@ import type { ThemeToggle } from "./ThemeToggle";
 
 @styles {
   .toggle {
-    display: grid; place-items: center; width: 38px; height: 38px; color: var(--color-text-muted); cursor: pointer;
-    background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 999px;
+    display: grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 999px;
   }
-  .toggle:hover { color: var(--color-text); border-color: var(--color-border-strong); }
+  .toggle:hover {
+    color: var(--color-text);
+    border-color: var(--color-border-strong);
+  }
 }

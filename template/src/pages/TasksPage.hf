@@ -6,7 +6,8 @@ import { TaskBoard } from "@modules/tasks";
   <div class="page">
     <PageHeader eyebrow="Feature · local state" title="Tasks">
       The view calls use cases; they check the rules and update <code>TaskStore</code> and
-      <code>LocalTaskStorage</code>. Tasks survive a page reload.
+      <code>LocalTaskStorage</code>. The filter lives in the URL (<code>@search</code>).
+      Tasks survive a page reload.
     </PageHeader>
     <TaskBoard />
   </div>

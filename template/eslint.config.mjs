@@ -1,14 +1,27 @@
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
 import helfy from "@helfy/helfy-lint";
-import tsParser from "@typescript-eslint/parser";
-import prettier from "eslint-config-prettier";
+import prettierPlugin from "eslint-plugin-prettier";
+import eslintConfigPrettier from "eslint-config-prettier";
 
-/** Helfy layer rules (@Store / @Service / @UseCase / @View). Formatting is left to Prettier. */
-export default [
+/**
+ * Standard ESLint + TypeScript recommended, Helfy layer rules, Prettier as warnings.
+ * Formatting of `.hf` is via `npm run format` (Helfy Prettier plugin).
+ */
+export default tseslint.config(
   { ignores: ["dist/**", ".helfy/**"] },
+  js.configs.recommended,
+  ...tseslint.configs.recommended,
   {
     files: ["src/**/*.{ts,tsx}"],
-    languageOptions: { parser: tsParser },
-    ...helfy.configs.recommended,
+    plugins: {
+      helfy,
+      prettier: prettierPlugin,
+    },
+    rules: {
+      ...helfy.configs.recommended.rules,
+      "prettier/prettier": "warn",
+    },
   },
-  prettier,
-];
+  eslintConfigPrettier,
+);

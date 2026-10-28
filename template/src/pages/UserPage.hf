@@ -19,6 +19,12 @@ import { UserProfile } from "@modules/users";
 }
 
 @styles {
-  .back { align-self: flex-start; font-size: 0.9rem; }
-  .profile-skeleton { height: 180px; border-radius: var(--radius-lg); }
+  .back {
+    align-self: flex-start;
+    font-size: 0.9rem;
+  }
+  .profile-skeleton {
+    height: 180px;
+    border-radius: var(--radius-lg);
+  }
 }

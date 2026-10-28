@@ -1,10 +1,11 @@
 import type { TaskBoard } from "./TaskBoard";
 import { TaskItem } from "./TaskItem";
+import { TextInput } from "@shared/ui/TextInput/TextInput";
 
 @template<TaskBoard>() {
   <section class="board card">
     <form class="board__form" onsubmit={this.submit}>
-      <input @bind(this.title) class="input board__input" placeholder="What needs to be done?" />
+      <TextInput @bind:value(this.title) class="input board__input" placeholder="What needs to be done?" />
       <button type="submit" class="btn btn--primary">Add task</button>
     </form>
     @if (this.error) -> <p class="board__error" role="alert">{this.error}</p>
@@ -17,7 +18,7 @@ import { TaskItem } from "./TaskItem";
             type="button"
             class="chip"
             aria-pressed={f === this.filter}
-            onclick={() => (this.filter = f)}
+            onclick={() => this.setFilter(f)}
           >
             {f}
           </button>
@@ -46,30 +47,94 @@ import { TaskItem } from "./TaskItem";
 }
 
 @styles {
-  .board { display: flex; flex-direction: column; gap: 16px; max-width: 640px; padding: 24px; }
-  .board__form { display: flex; gap: 10px; }
-  .board__input { flex: 1; }
-  .board__error { margin: -6px 0 0 14px; color: var(--color-danger); font-size: 0.85rem; }
-  .board__bar { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; }
-  .board__bar strong { color: var(--color-text); }
-  .board__filters { display: flex; gap: 2px; padding: 3px; background: var(--color-surface-2); border-radius: 999px; }
-  .chip {
-    padding: 4px 14px; font: 500 0.8rem var(--font-sans); text-transform: capitalize; color: var(--color-text-muted);
-    cursor: pointer; background: transparent; border: 0; border-radius: 999px;
-  }
-  .chip:hover { color: var(--color-text); }
-  .chip[aria-pressed="true"] { color: var(--color-text); background: var(--color-surface); box-shadow: var(--shadow-card); }
-  .board__progress { height: 6px; overflow: hidden; background: var(--color-surface-2); border-radius: 999px; }
-  .board__progress-fill {
-    width: {this.progress}%;   /* a CSS variable on the root, updated when progress changes */
-    height: 100%; background: var(--gradient-brand); border-radius: inherit; transition: width 0.3s, background 0.3s;
-    @if (this.progress === 100) {
-      background: var(--brand-green);
+  @bind pct = this.progress;
+
+  .board {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    max-width: 640px;
+    padding: 24px;
+
+    &__form {
+      display: flex;
+      gap: 10px;
+    }
+    &__input {
+      flex: 1;
+    }
+    &__error {
+      margin: -6px 0 0 14px;
+      color: var(--color-danger);
+      font-size: 0.85rem;
+    }
+    &__bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.9rem;
+
+      strong {
+        color: var(--color-text);
+      }
+    }
+    &__filters {
+      display: flex;
+      gap: 2px;
+      padding: 3px;
+      background: var(--color-surface-2);
+      border-radius: 999px;
+    }
+    &__progress {
+      height: 6px;
+      overflow: hidden;
+      background: var(--color-surface-2);
+      border-radius: 999px;
+    }
+    &__progress-fill {
+      /* named style bind — same as {this.progress}% */
+      width: bind(pct)%;
+      height: 100%;
+      background: var(--gradient-brand);
+      border-radius: inherit;
+      transition: width 0.3s, background 0.3s;
+      @if (this.progress === 100) {
+        background: var(--brand-green);
+      }
+    }
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+    &__empty {
+      padding: 28px 0;
+      color: var(--color-text-subtle);
+      text-align: center;
+      border: 1px dashed var(--color-border-strong);
+      border-radius: var(--radius);
     }
   }
-  .board__list { display: flex; flex-direction: column; gap: 6px; margin: 0; padding: 0; list-style: none; }
-  .board__empty {
-    padding: 28px 0; color: var(--color-text-subtle); text-align: center;
-    border: 1px dashed var(--color-border-strong); border-radius: var(--radius);
+  .chip {
+    padding: 4px 14px;
+    font: 500 0.8rem var(--font-sans);
+    text-transform: capitalize;
+    color: var(--color-text-muted);
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+    border-radius: 999px;
+
+    &:hover {
+      color: var(--color-text);
+    }
+    &[aria-pressed="true"] {
+      color: var(--color-text);
+      background: var(--color-surface);
+      box-shadow: var(--shadow-card);
+    }
   }
 }

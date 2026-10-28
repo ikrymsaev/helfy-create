@@ -8,5 +8,11 @@ import type { Footer } from "./Footer";
 }
 
 @styles {
-  .footer { display: flex; justify-content: space-between; gap: 16px; font-size: 0.85rem; color: var(--color-text-subtle); }
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 0.85rem;
+    color: var(--color-text-subtle);
+  }
 }

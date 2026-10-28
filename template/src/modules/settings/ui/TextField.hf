@@ -1,0 +1,39 @@
+import type { TextField } from "./TextField";
+
+@template<TextField>() {
+  <label class="field">
+    <span class="field__label">{this.props.label}</span>
+    <input
+      @ref(this.input)
+      @field(this.props.$field)
+      class="input"
+      type={this.props.type ?? "text"}
+      placeholder={this.props.placeholder}
+      autocomplete={this.props.autocomplete}
+      aria-invalid={this.props.$field.isTouched && this.props.$field.error ? "true" : undefined}
+    />
+    @if (this.props.$field.isTouched && this.props.$field.error) {
+      <span class="field__error" role="alert">{this.props.$field.error}</span>
+    }
+  </label>
+}
+
+@styles {
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .field__label {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--color-text-muted);
+  }
+  .field__error {
+    font-size: 0.8rem;
+    color: var(--color-danger);
+  }
+  .input[aria-invalid="true"] {
+    border-color: var(--color-danger);
+  }
+}

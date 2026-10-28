@@ -1,0 +1,17 @@
+import type { SettingsPage } from "./SettingsPage";
+import { PageHeader } from "@shared/ui/PageHeader/PageHeader";
+import { ProfileForm, ProfileFormContext } from "@modules/settings";
+
+@template<SettingsPage>() {
+  <div class="page">
+    <PageHeader eyebrow="Feature · forms & refs" title="Settings">
+      A <code>@Form</code> context holds <code>{"@field"}</code> state. The page wraps the form in that
+      context; the view takes it with <code>@useForm</code>, wraps inputs in a <code>$field</code>
+      component, and focuses the first field through <code>{"@ref"}</code> / <code>@expose</code>.
+      Saving goes through a use case and localStorage.
+    </PageHeader>
+    <ProfileFormContext>
+      <ProfileForm />
+    </ProfileFormContext>
+  </div>
+}
