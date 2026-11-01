@@ -70,14 +70,14 @@ module.exports = {
         test: /\.hf$/,
         exclude: /node_modules/,
         use: [
-          'babel-loader',
+          require.resolve('@helfy/helfy/compiler/helfy-ts-loader'),
           require.resolve('@helfy/helfy/compiler/hf-loader'),
         ],
       },
       {
-        test: /\.(ts|js)$/,
+        test: /\.ts$/,
         exclude: /node_modules/,
-        use: 'babel-loader',
+        use: require.resolve('@helfy/helfy/compiler/helfy-ts-loader'),
       },
     ],
   },

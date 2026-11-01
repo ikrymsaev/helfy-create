@@ -22,6 +22,12 @@ npx helfy-create
 - `--skip-extension` — do not offer to install the editor extension
 - `--install-extension` — only install the editor extension, without creating a project
 
+## Requirements
+
+Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy 0.6.x and helfy-lint 0.2.x.
+TypeScript and `.hf` templates compile through the Helfy TypeScript loader with standard decorators.
+Routing and logging are enabled with `withRouter` and `withLogger` app plugins.
+
 ## Linting and formatting
 
 `helfy-create` asks whether to add ESLint and Prettier (yes by default):
@@ -34,7 +40,7 @@ npx helfy-create
   the same as in the editor extension)
 
 The worst violations — `@effect` on a `@Store`, `@state` on a `@Service` and the like — fail the build with or without
-the linters: the check is part of `@helfy/helfy/babel-preset`.
+the linters: the check is part of `@helfy/helfy/compiler/helfy-ts-loader`.
 
 ## Editor setup (VS Code / Cursor)
 
@@ -42,8 +48,7 @@ The Helfy extension adds `.hf` template support: highlighting, type checking of 
 go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
-`PATH` (`code`, `cursor`, `codium`, `windsurf`). The template uses `@styles` blocks, which need
-extension 0.1.5 or later. To install or update it at any time:
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.2.0 or later with Helfy 0.6.0 (standard TypeScript decorators). To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -66,7 +71,7 @@ A small app that shows how a Helfy project is structured — layers with one job
 - **Users** — server data over a mock backend: `@useQuery` with `@safe / @wait / @fail`, optimistic
   `@useMutation`, `@useInfiniteQuery`, lazy detail with `@params`, `@onFail` / `@logger`
 - **Settings** — `@Form` / `@field` / `@useForm`, `$field` wrappers, `@ref` / `@expose` focus
-- Helfy + TypeScript + Rspack, `.hf` templates with `@styles` (BEM nesting via `&__` / `&:hover`, state-driven
+- Helfy + TypeScript + Rspack 2, `.hf` templates with `@styles` (BEM nesting via `&__` / `&:hover`, state-driven
   values, classes from a shared stylesheet with `@add`) and `@fragment`, a theme context, a custom 404 page
 - `ARCHITECTURE.md` — the structure and the rules of each layer
 - `npm run dev` — development server (port 3000), `npm run build` — production build

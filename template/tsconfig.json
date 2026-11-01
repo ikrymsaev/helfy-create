@@ -7,8 +7,7 @@
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "useDefineForClassFields": true,
     "paths": {
       "@context/*": ["./context/*"],
       "@modules/*": ["./modules/*"],
