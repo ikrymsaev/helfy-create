@@ -38,7 +38,8 @@ try {
     assert.ok(paths.includes(file), `Missing from archive: ${file}`);
   }
   assert.ok(!paths.some((file) => /(?:^|\/)(?:node_modules|dist|\.helfy)(?:\/|$)/.test(file)));
-  run("tar", ["-xf", path.join(temp, pack.filename), "-C", temp], root);
+  // GNU tar treats a Windows drive prefix in the archive path as a remote host.
+  run("tar", ["-xf", pack.filename], temp);
   const cli = path.join(temp, "package/bin/create-helfy.js");
   for (const lint of [true, false]) {
     const name = lint ? "with-lint" : "without-lint";
