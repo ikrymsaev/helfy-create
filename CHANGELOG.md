@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.8.1 — 2026-11-07
+
+- Update the starter to `@helfy/helfy ^0.7.1` and `@helfy/helfy-lint ^0.4.0`.
+- Refresh the template lockfile and dependency expectations in generator tests.
+
 ## 0.8.0 — 2026-11-07
 
 - Add `npm run mcp:config` to print MCP client JSON, with optional `--file` runtime snapshots.

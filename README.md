@@ -24,7 +24,7 @@ npx helfy-create
 
 ## Requirements
 
-Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy 0.7.x and helfy-lint 0.3.x.
+Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy ^0.7.1 and helfy-lint ^0.4.0.
 TypeScript and `.hf` templates compile through the Helfy TypeScript loader with standard decorators.
 Routing and logging are enabled with `withRouter` and `withLogger` app plugins.
 The DevTools panel is enabled only in development. Vitest 4 and jsdom compile tests through

@@ -1,6 +1,6 @@
 {
   "name": "helfy-create",
-  "version": "0.8.0",
+  "version": "0.8.1",
   "description": "Create a new Helfy project",
   "bin": {
     "helfy-create": "./bin/create-helfy.js"
