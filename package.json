@@ -1,6 +1,6 @@
 {
   "name": "helfy-create",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Create a new Helfy project",
   "bin": {
     "helfy-create": "./bin/create-helfy.js"
@@ -17,7 +17,11 @@
     "template/rspack.config.js",
     "template/declaration.d.ts",
     "template/ARCHITECTURE.md",
-    "template/src"
+    "template/src",
+    "template/README.md",
+    "template/vitest.config.mts",
+    "CHANGELOG.md",
+    "template/scripts"
   ],
   "keywords": [
     "helfy",
@@ -30,5 +34,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/ikrymsaev/helfy-create"
+  },
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24.0.0"
+  },
+  "scripts": {
+    "test": "node --test test/create.test.js",
+    "test:starter": "node scripts/check-starter.js",
+    "prepublishOnly": "npm test && npm run test:starter"
   }
 }

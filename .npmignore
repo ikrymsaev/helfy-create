@@ -18,7 +18,6 @@ node_modules
 .cursor
 
 # Template generated/cache
-**/package-lock.json
 template/node_modules
 template/.helfy
 template/dist

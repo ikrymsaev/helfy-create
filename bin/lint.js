@@ -36,6 +36,9 @@ function removeLint(root) {
   for (const name of DEV_DEPENDENCIES) delete pkg.devDependencies[name];
   for (const name of SCRIPTS) delete pkg.scripts[name];
   fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + "\n");
+  // The full starter's lockfile still references the removed lint dependencies.
+  // npm install will create a matching lockfile for this variant.
+  fs.rmSync(path.join(root, "package-lock.json"), { force: true });
 }
 
 module.exports = { wantLint, removeLint };

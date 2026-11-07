@@ -1,7 +1,8 @@
 {
   "compilerOptions": {
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "strictNullChecks": true,
     "target": "es6",
     "baseUrl": "src",
     "noEmit": true,

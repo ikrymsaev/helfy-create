@@ -67,6 +67,14 @@ export class HomePage {
 
   readonly also: AlsoItem[] = [
     {
+      where: "DevTools",
+      what: "Inspect views, signals and events from the development panel ? src/index.ts",
+    },
+    {
+      where: "Testing",
+      what: "Store, use-case and .hf component tests ? modules/tasks/*.test.ts, npm test",
+    },
+    {
       where: "@search / @router",
       what: "Task filter in the query string — TaskBoard.ts",
     },

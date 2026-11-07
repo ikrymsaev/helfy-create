@@ -24,9 +24,11 @@ npx helfy-create
 
 ## Requirements
 
-Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy 0.6.x and helfy-lint 0.2.x.
+Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy 0.7.x and helfy-lint 0.3.x.
 TypeScript and `.hf` templates compile through the Helfy TypeScript loader with standard decorators.
 Routing and logging are enabled with `withRouter` and `withLogger` app plugins.
+The DevTools panel is enabled only in development. Vitest 4 and jsdom compile tests through
+the public Helfy testing adapters.
 
 ## Linting and formatting
 
@@ -48,7 +50,7 @@ The Helfy extension adds `.hf` template support: highlighting, type checking of 
 go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
-`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.2.0 or later with Helfy 0.6.0 (standard TypeScript decorators). To install or update it at any time:
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.2.0 or later with Helfy 0.7.0 (standard TypeScript decorators). To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -89,3 +91,36 @@ src/
     users/            api (@ApiClient + mock backend), ui
     settings/         @Form, use cases, profile storage, ui
 ```
+
+## Development tools in generated projects
+
+The starter includes `npm test`, `npm run test:watch`, `npm run typecheck`,
+`npm run doctor` and `npm run doctor:json`.
+Run `npm run mcp:config` to print MCP client JSON with absolute paths, or
+`npm run mcp:config -- --file ./devtools-dump.json` to inspect a runtime snapshot.
+The MCP client starts the server; browser runtime data currently requires a dump.
+See the generated project's README for connection and snapshot instructions.
+
+`src/index.ts` installs DevTools through `.use(withDevtools(), process.env.NODE_ENV !== "production")`.
+The development panel loads separately; production builds disable the plugin and remove reactive probes.
+`vitest.config.mts` uses `helfyHf()` and `helfyTs()` and shares the Rspack path aliases.
+Tests run on a fresh project before its first application build.
+
+The default project includes a lockfile and supports `npm ci`. With `--no-lint --skip-install`,
+the full lockfile is omitted; run `npm install` first to generate the matching lockfile.
+Testing and Doctor remain available without lint tooling.
+
+## Release validation
+
+```bash
+npm test
+npm run test:starter
+npm pack
+```
+
+`test:starter` packs the generator, extracts it and creates projects with and without lint tooling.
+It installs published dependencies, runs example tests before the first build, builds production output,
+checks TypeScript and lint/format where available, and runs Doctor configuration checks. The check uses `tar`
+(available on supported Windows versions, macOS and Linux).
+Set `HELFY_KEEP_RELEASE_CHECK=1` to retain temporary projects for inspection.
+Publication runs these checks through `prepublishOnly`; it never happens as part of the checks themselves.

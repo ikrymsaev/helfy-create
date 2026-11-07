@@ -8,16 +8,48 @@ const { installExtension } = require("./extension");
 const { wantLint, removeLint } = require("./lint");
 
 const args = process.argv.slice(2);
+if (args.includes("--help") || args.includes("-h")) {
+  console.log(`Usage: helfy-create [directory] [options]
+
+Options:
+  --skip-install       Create files without installing dependencies
+  --lint / --no-lint    Include or omit ESLint and Prettier (default: include)
+  --skip-extension     Skip the editor extension offer
+  --install-extension  Install only the editor extension
+  --version, -v        Print the generator version
+  --help, -h           Show this help
+`);
+  return;
+}
+if (args.includes("--version") || args.includes("-v")) {
+  console.log(require("../package.json").version);
+  return;
+}
+const flags = new Set([
+  "--skip-install", "--skip-extension", "--lint", "--no-lint", "--install-extension",
+]);
+const unknown = args.find((arg) => arg.startsWith("-") && !flags.has(arg));
+const directories = args.filter((arg) => !arg.startsWith("-"));
+if (unknown || directories.length > 1 || (args.includes("--lint") && args.includes("--no-lint"))) {
+  console.error(unknown ? `Unknown option: ${unknown}` : "Choose one directory and one lint option.");
+  process.exit(1);
+}
 const skipInstall = args.includes("--skip-install");
 const skipExtension = args.includes("--skip-extension");
 const projectName = args.find((a) => !a.startsWith("--")) || "helfy-app";
 const root = path.resolve(process.cwd(), projectName);
+const packageName = path.basename(root);
 const templateDir = path.join(__dirname, "..", "template");
 
 // Only the editor extension, no project
 if (args.includes("--install-extension")) {
   installExtension("yes").then(() => process.exit(0));
   return;
+}
+
+if (!/^[a-z0-9][a-z0-9._-]*$/.test(packageName) || packageName.length > 214 || packageName === "node_modules") {
+  console.error("Error: Use a directory name suitable for an npm package (lowercase letters, digits, dots, hyphens).");
+  process.exit(1);
 }
 
 if (fs.existsSync(root)) {
@@ -43,7 +75,7 @@ function copyDir(src, dest) {
       fs.copyFileSync(srcPath, destPath);
     } else {
       let content = fs.readFileSync(srcPath, "utf-8");
-      content = content.replace(/\{\{PROJECT_NAME\}\}/g, projectName);
+      content = content.replace(/\{\{PROJECT_NAME\}\}/g, packageName);
       fs.writeFileSync(destPath, content);
     }
   }
@@ -73,9 +105,15 @@ function copyDir(src, dest) {
     console.log("  npm install");
   }
   console.log("  npm run dev\n");
+  console.log("Tests and diagnostics:\n");
+  console.log("  npm test");
+  console.log("  npm run doctor\n");
   if (lint) {
     console.log("Architecture rules and formatting:\n");
     console.log("  npm run lint");
     console.log("  npm run format\n");
   }
-})();
+})().catch((error) => {
+  console.error(`Error: ${error.message}`);
+  process.exitCode = 1;
+});
