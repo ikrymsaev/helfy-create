@@ -3,10 +3,10 @@ import { TextField } from "./TextField";
 
 @template<ProfileForm>() {
   <form class="profile card" onsubmit={this.submit}>
-    <p class="muted profile__hint">
-      <code>@Form</code> + <code>{"@field"}</code>, <code>$field</code>, <code>{"@ref"}</code> /
-      <code>@expose</code>. Styles nest BEM with <code>&__hint</code> under <code>@styles</code>.
-    </p>
+    <md class="muted profile__hint">
+      `@Form` + `@field`, `$field`, `@ref` /
+      `@expose`. Styles nest BEM with `&__hint` under `@styles`.
+    </md>
 
     <TextField
       @ref(this.nameField)

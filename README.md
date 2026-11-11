@@ -24,7 +24,7 @@ npx helfy-create
 
 ## Requirements
 
-Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy ^0.7.1 and helfy-lint ^0.4.0.
+Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy ^0.8.0 and helfy-lint ^0.5.0.
 TypeScript and `.hf` templates compile through the Helfy TypeScript loader with standard decorators.
 Routing and logging are enabled with `withRouter` and `withLogger` app plugins.
 The DevTools panel is enabled only in development. Vitest 4 and jsdom compile tests through
@@ -50,7 +50,7 @@ The Helfy extension adds `.hf` template support: highlighting, type checking of 
 go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
-`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.2.0 or later with Helfy 0.7.0 (standard TypeScript decorators). To install or update it at any time:
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.3.0 or later for native Markdown support with Helfy 0.8.0. The installer downloads the latest release. To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -68,6 +68,8 @@ The old `helfy.helfy-syntax` extension (directives in `.tsx`) conflicts with it 
 A small app that shows how a Helfy project is structured — layers with one job each, wired by dependency injection:
 
 - **Overview** — how the app is built: the layers, their rules, the path of one click through them
+- Native Markdown for static page descriptions and overview content: external `.md` documents through
+  `@markdown ... from`, inline `<md>` blocks, and a configured `md-loader` for direct `.md` imports
 - **Tasks** — local state through all the layers: `@View` → `@UseCase` → `@Store` and `@Service` (localStorage);
   filter in the URL (`@search`), `@bind:value` input, named style `@bind`
 - **Users** — server data over a mock backend: `@useQuery` with `@safe / @wait / @fail`, optimistic
@@ -83,7 +85,12 @@ A small app that shows how a Helfy project is structured — layers with one job
 src/
   App.ts / App.hf     the shell: layout, header, navigation, router
   context/            theme
-  pages/              one component per route; pages compose modules
+  pages/              routes, router and layouts
+    HomePage/         view, template and Markdown overview content
+    TasksPage/        view, template and description.md
+    UsersPage/        view, template and description.md
+    UserPage/         lazy user detail view and template
+    SettingsPage/     view, template and description.md
   widgets/            header, navigation, footer, 404
   shared/             UI without business logic, shared stylesheets
   modules/

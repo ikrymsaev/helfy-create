@@ -4,7 +4,7 @@ import type { PageHeader } from "./PageHeader";
   <header class="page-header">
     @if (this.props.eyebrow) -> <span class="eyebrow">{this.props.eyebrow}</span>
     <h1>{this.props.title}</h1>
-    <p>@slot:default()</p>
+    <div class="page-header__description">@slot:default()</div>
   </header>
 }
 
@@ -14,14 +14,16 @@ import type { PageHeader } from "./PageHeader";
     flex-direction: column;
     gap: 10px;
     max-width: 680px;
-  }
-  .page-header h1 {
-    font-size: 2.25rem;
-    font-weight: 800;
-  }
-  .page-header p {
-    margin: 0;
-    font-size: 1.05rem;
-    color: var(--color-text-muted);
+
+    h1 {
+      font-size: 2.25rem;
+      font-weight: 800;
+    }
+
+    p {
+      margin: 0;
+      font-size: 1.05rem;
+      color: var(--color-text-muted);
+    }
   }
 }

@@ -1,6 +1,6 @@
 # {{PROJECT_NAME}}
 
-A Helfy 0.7 application with TypeScript, Rspack 2, `.hf` templates and standard decorators.
+A Helfy 0.8 application with TypeScript, Rspack 2, `.hf` templates, native Markdown and standard decorators.
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the layers and dependency injection.
 
 ```bash
@@ -31,6 +31,38 @@ Use `npm ci` for subsequent clean installations with the project's committed loc
 Run `npm run build` before Doctor on a fresh project: the build generates the `.helfy`
 DI and view registries. Doctor skips checks whose optional tools or live browser runtime
 are unavailable. It complements the build and tests.
+
+## Pages and Markdown
+
+Each route has its own folder in `src/pages/`: `HomePage`, `TasksPage`, `UsersPage`,
+`UserPage` and `SettingsPage`. Keep the view, `.hf` template and page content together;
+the route list and router remain at the root of `pages/`, with shared layouts in `layouts/`.
+
+Static explanations live in `.md` documents next to the page. The overview keeps its
+longer content in `HomePage/content/`; feature pages use `description.md`:
+
+```hf
+@markdown page-description from "./description.md";
+
+@template<MyPage>() {
+  <page-description />
+}
+```
+
+Use `<md class="muted">Short text with **emphasis** and `code`.</md>` for a short
+explanation inside a template. Markdown bodies are literal text: expressions such as
+`{this.value}` and directives inside them are not evaluated. Keep dynamic values,
+components and controls in `.hf` markup.
+
+Rspack also configures `@helfy/helfy/compiler/md-loader`: a direct `.md` import returns
+a template usable with `@View({ template })`. The existing `@helfy/helfy/helfy-hf` type
+reference declares both `.hf` and `.md` modules. Markdown compiles during the build;
+the browser does not load a Markdown parser.
+
+Prettier formats standalone `.md` files normally; the Helfy formatter handles `.hf`.
+The compiler validates Markdown during builds, while ESLint checks TypeScript layer
+rules. Install Helfy editor extension 0.3.0 or later for Markdown highlighting,
+diagnostics and navigation (`npx helfy-create --install-extension`).
 
 ## DevTools
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## Unreleased
+
+- Update the starter to `@helfy/helfy ^0.8.0` and `@helfy/helfy-lint ^0.5.0`.
+- Move each page into its own folder with its template and Markdown content; update eager and lazy route imports.
+- Move static overview content and feature page descriptions into `.md` files and use inline `<md>` for short explanations.
+- Configure the public Markdown loader and document Helfy editor extension 0.3.0 support.
+
 ## 0.8.1 — 2026-11-07
 
 - Update the starter to `@helfy/helfy ^0.7.1` and `@helfy/helfy-lint ^0.4.0`.

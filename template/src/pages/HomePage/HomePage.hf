@@ -1,0 +1,382 @@
+import type { HomePage } from "./HomePage";
+import { Link } from "@helfy/helfy";
+
+@markdown overview-intro from "./content/intro.md";
+@markdown layer-view from "./content/layers/view.md";
+@markdown layer-use-case from "./content/layers/use-case.md";
+@markdown layer-store from "./content/layers/store.md";
+@markdown layer-service from "./content/layers/service.md";
+@markdown layer-api-client from "./content/layers/api-client.md";
+@markdown layer-form from "./content/layers/form.md";
+@markdown layer-context from "./content/layers/context.md";
+@markdown follow-click from "./content/follow-click.md";
+@markdown starter-syntax from "./content/syntax.md";
+
+// A fragment: markup reused inside this file, inlined at compile time
+@fragment("window-dot") {
+  <span class="code__dot"></span>
+}
+
+@template<HomePage>() {
+  <div class="page home">
+    <section class="hero">
+      <div class="hero__text">
+        <span class="eyebrow">Helfy starter</span>
+        <h1>An app in layers, <span class="gradient-text">each with one job</span></h1>
+        <overview-intro class="hero__lead" />
+        <div class="hero__actions">
+          <Link to="/tasks" label="See it in Tasks" class="btn btn--primary" />
+          <Link to="/users" label="Server data" class="btn" />
+          <Link to="/settings" label="Forms" class="btn" />
+        </div>
+      </div>
+      <div class="code card">
+        <div class="code__bar">
+          <window-dot />
+          <window-dot />
+          <window-dot />
+          <span class="code__file">AddTaskUseCase.ts</span>
+        </div>
+        <pre class="code__body">
+          @for (line of this.code) -> <span class="code__line" data-kind={this.lineKind(line)}>{line || " "}</span>
+        </pre>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <h2>Layers</h2>
+        <md class="muted">One job each. The rules are in `ARCHITECTURE.md`.</md>
+      </div>
+      <div class="layers">
+        <layer-view class="layer card" />
+        <layer-use-case class="layer card" />
+        <layer-store class="layer card" />
+        <layer-service class="layer card" />
+        <layer-api-client class="layer card" />
+        <layer-form class="layer card" />
+        <layer-context class="layer card" />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <h2>Follow one click</h2>
+        <p class="muted">What happens when you add a task on the <Link to="/tasks" label="Tasks" /> page.</p>
+      </div>
+      <follow-click class="steps" />
+    </section>
+
+    <section class="features">
+      <Link to="/tasks" class="feature card">
+        <span class="eyebrow">Local state</span>
+        <h3>Tasks</h3>
+        <md class="muted">View → use cases → store and a storage service. Filter in the URL via `@search`.</md>
+      </Link>
+      <Link to="/users" class="feature card">
+        <span class="eyebrow">Server data</span>
+        <h3>Users</h3>
+        <md class="muted">Queries, optimistic mutations and an infinite feed over a mock backend.</md>
+      </Link>
+      <Link to="/settings" class="feature card">
+        <span class="eyebrow">Forms & refs</span>
+        <h3>Settings</h3>
+        <md class="muted">`@Form` / `@field`, `$field` wrappers, `@ref` / `@expose`.</md>
+      </Link>
+    </section>
+
+    <section class="section">
+      <div class="section__head">
+        <h2>Also in this starter</h2>
+        <p class="muted">Syntax and APIs shown next to the layers.</p>
+      </div>
+      <starter-syntax class="also" />
+    </section>
+  </div>
+}
+
+@styles {
+  .home {
+    gap: 72px;
+  }
+
+  .hero {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    padding-top: 24px;
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+    }
+
+    &__lead {
+      margin: 0;
+      font-size: 1.1rem;
+      color: var(--color-text-muted);
+    }
+
+    &__actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+
+      h1 {
+        font-size: 2.25rem;
+      }
+    }
+  }
+
+  .code {
+    padding: 0;
+    overflow: hidden;
+
+    &__bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--color-border);
+      background: var(--color-surface-2);
+    }
+
+    &__dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--color-border-strong);
+    }
+
+    &__file {
+      margin-left: 8px;
+      font: 500 0.8rem var(--font-mono);
+      color: var(--color-text-muted);
+    }
+
+    &__body {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 18px 20px;
+      font: 0.82rem/1.7 var(--font-mono);
+      color: var(--color-text-muted);
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    &__line {
+      &[data-kind="decorator"] {
+        color: var(--brand-cyan);
+      }
+
+      &[data-kind="keyword"] {
+        color: var(--color-text);
+      }
+    }
+  }
+
+  .section {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    &__head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 16px;
+
+      h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+      }
+
+      p {
+        margin: 0;
+      }
+    }
+  }
+
+  .layers {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .layer {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: border-color 0.2s, transform 0.2s;
+
+    &:hover {
+      border-color: var(--color-border-strong);
+      transform: translateY(-2px);
+    }
+
+    h3 {
+      background: var(--gradient-brand);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin: 0;
+      font: 600 1.05rem var(--font-mono);
+      align-self: flex-start;
+    }
+
+    p {
+      &:first-of-type {
+        margin: 0;
+        font-weight: 500;
+      }
+
+      &:nth-of-type(2) {
+        margin: 0;
+        font-size: 0.875rem;
+        color: var(--color-text-muted);
+      }
+
+      &:last-child {
+        margin-top: auto;
+        align-self: flex-start;
+        font-size: 0.72rem;
+        color: var(--color-text-subtle);
+      }
+    }
+
+    h3 code, p:last-child code {
+      padding: 0;
+      border: 0;
+      background: none;
+      color: inherit;
+      font: inherit;
+    }
+  }
+
+  .steps {
+    ol {
+      counter-reset: step;
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    li {
+      position: relative;
+      counter-increment: step;
+      padding: 0 0 24px 48px;
+
+      &:not(:last-child)::after {
+        content: "";
+        position: absolute;
+        left: 15px;
+        top: 34px;
+        bottom: 4px;
+        width: 2px;
+        background: linear-gradient(var(--brand-cyan), transparent);
+      }
+
+      &::before {
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: var(--color-on-brand);
+        background: var(--gradient-brand);
+        border-radius: 50%;
+        content: counter(step);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 32px;
+        height: 32px;
+        font-size: 0.85rem;
+      }
+    }
+
+    p {
+      margin: 0;
+      color: var(--color-text-muted);
+    }
+
+    strong {
+      color: var(--color-text);
+      font-weight: 600;
+    }
+  }
+
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+
+    @media (max-width: 860px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .feature {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    color: var(--color-text);
+    transition: border-color 0.2s;
+
+    &:hover {
+      text-decoration: none;
+      border-color: var(--brand-cyan);
+    }
+
+    h3 {
+      font-size: 1.3rem;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .also {
+    overflow-x: auto;
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+    }
+
+    th, td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--color-border);
+      vertical-align: baseline;
+    }
+
+    td {
+      &:first-child {
+        min-width: 180px;
+        color: var(--brand-cyan);
+      }
+
+      &:last-child {
+        color: var(--color-text-muted);
+      }
+    }
+  }
+}

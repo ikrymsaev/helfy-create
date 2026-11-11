@@ -23,16 +23,19 @@ import type { TextField } from "./TextField";
     display: flex;
     flex-direction: column;
     gap: 6px;
+
+    &__label {
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    &__error {
+      font-size: 0.8rem;
+      color: var(--color-danger);
+    }
   }
-  .field__label {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--color-text-muted);
-  }
-  .field__error {
-    font-size: 0.8rem;
-    color: var(--color-danger);
-  }
+
   .input[aria-invalid="true"] {
     border-color: var(--color-danger);
   }

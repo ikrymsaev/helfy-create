@@ -4,9 +4,9 @@ import type { ActivityFeed } from "./ActivityFeed";
   <section class="feed card">
     <div class="feed__head">
       <h2>Activity</h2>
-      <p class="muted">
-        <code>@useInfiniteQuery</code> pages the mock list. <code>loadMore()</code> fetches the next page.
-      </p>
+      <md class="muted">
+        `@useInfiniteQuery` pages the mock list. `loadMore()` fetches the next page.
+      </md>
     </div>
 
     @if (this.activity.isLoading && this.activity.data.length === 0) {
@@ -44,49 +44,58 @@ import type { ActivityFeed } from "./ActivityFeed";
     flex-direction: column;
     gap: 16px;
     padding: 24px;
-  }
-  .feed__head {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .feed__head h2 {
-    margin: 0;
-    font-size: 1.15rem;
-    font-weight: 700;
-  }
-  .feed__head p {
-    margin: 0;
-    font-size: 0.9rem;
-  }
-  .feed__error {
-    margin: 0;
-    color: var(--color-danger);
-  }
-  .feed__list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  .feed__item {
-    display: flex;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 10px 14px;
-    border-bottom: 1px solid var(--color-border);
-    font-size: 0.95rem;
-  }
-  .feed__item:last-child {
-    border-bottom: 0;
-  }
-  .feed__end {
-    margin: 0;
-    font-size: 0.85rem;
-  }
-  .feed .btn {
-    align-self: flex-start;
+
+    &__head {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+
+      h2 {
+        margin: 0;
+        font-size: 1.15rem;
+        font-weight: 700;
+      }
+
+      p {
+        margin: 0;
+        font-size: 0.9rem;
+      }
+    }
+
+    &__error {
+      margin: 0;
+      color: var(--color-danger);
+    }
+
+    &__list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    &__item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--color-border);
+      font-size: 0.95rem;
+
+      &:last-child {
+        border-bottom: 0;
+      }
+    }
+
+    &__end {
+      margin: 0;
+      font-size: 0.85rem;
+    }
+
+    .btn {
+      align-self: flex-start;
+    }
   }
 }

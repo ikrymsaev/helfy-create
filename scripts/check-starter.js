@@ -34,7 +34,7 @@ const npm = (args, cwd, capture) => run(process.execPath, [npmCli, ...args], cwd
 try {
   const [pack] = JSON.parse(npm(["pack", "--ignore-scripts", "--json", "--pack-destination", temp], root, true));
   const paths = pack.files.map((file) => file.path);
-  for (const file of ["bin/create-helfy.js", "template/package-lock.json", "template/vitest.config.mts", "template/README.md", "template/scripts/mcp-config.mjs", "template/src/modules/tasks/ui/TaskItem.test.ts"]) {
+  for (const file of ["bin/create-helfy.js", "template/package-lock.json", "template/vitest.config.mts", "template/README.md", "template/scripts/mcp-config.mjs", "template/src/modules/tasks/ui/TaskItem.test.ts", "template/src/pages/HomePage/content/intro.md", "template/src/pages/TasksPage/description.md"]) {
     assert.ok(paths.includes(file), `Missing from archive: ${file}`);
   }
   assert.ok(!paths.some((file) => /(?:^|\/)(?:node_modules|dist|\.helfy)(?:\/|$)/.test(file)));

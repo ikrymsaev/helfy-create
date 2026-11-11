@@ -11,7 +11,13 @@ src/
   index.ts            createApp: router, mount
   App.ts / App.hf     the shell: layout, header, navigation, router
   context/            @Context — state of a subtree (theme)
-  pages/              one component per route; pages compose modules
+  pages/              routes and router; pages compose modules
+    HomePage/         HomePage.ts, HomePage.hf, content/*.md
+    TasksPage/        TasksPage.ts, TasksPage.hf, description.md
+    UsersPage/        UsersPage.ts, UsersPage.hf, description.md
+    UserPage/         UserPage.ts, UserPage.hf (lazy detail route)
+    SettingsPage/     SettingsPage.ts, SettingsPage.hf, description.md
+    layouts/          shared page layouts
   widgets/            parts of the shell: header, navigation, 404
   shared/
     ui/               components without business logic, used anywhere
@@ -132,4 +138,4 @@ if you swap the backend:
 1. `src/modules/<feature>/model/types.ts` — data types and the interfaces of the store, services and use cases.
 2. The store, services and use cases, each implementing its interface.
 3. Components in `ui/`, exported from `index.ts`.
-4. A page in `src/pages/` that uses them, and a route in `src/pages/_routes.ts`.
+4. A page folder in `src/pages/` containing its view, template and static Markdown content, and a route in `src/pages/_routes.ts`.

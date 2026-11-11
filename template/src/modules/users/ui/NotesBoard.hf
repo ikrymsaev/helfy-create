@@ -4,10 +4,10 @@ import type { NotesBoard } from "./NotesBoard";
   <section class="notes card">
     <div class="notes__head">
       <h2>Team notes</h2>
-      <p class="muted">
-        <code>@useMutation</code> + optimistic cache update. The note shows up at once;
+      <md class="muted">
+        `@useMutation` + optimistic cache update. The note shows up at once;
         if the mock fails, the list rolls back.
-      </p>
+      </md>
     </div>
 
     <form class="notes__form" onsubmit={this.submit}>

@@ -7,12 +7,12 @@ import { UserList, NotesBoard, ActivityFeed } from "@modules/users";
   <div class="skeleton user-skeleton"></div>
 }
 
+@markdown page-description from "./description.md";
+
 @template<UsersPage>() {
   <div class="page users-page">
     <PageHeader eyebrow="Feature · server data" title="Users">
-      <code>UsersApi</code> serves cached queries, mutations and an infinite feed over
-      <code>MockUsersBackend</code>. Loading and errors for the list are handled by
-      <code>@safe … @wait … @fail</code> on this page.
+      <page-description />
     </PageHeader>
     @safe {
       <UserList />

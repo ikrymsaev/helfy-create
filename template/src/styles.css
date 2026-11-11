@@ -62,10 +62,10 @@
 
 html {
   color-scheme: light;
-}
 
-html.dark {
-  color-scheme: dark;
+  &.dark {
+    color-scheme: dark;
+  }
 }
 
 body {
@@ -76,29 +76,29 @@ body {
   color: var(--color-text);
   background: var(--color-bg);
   -webkit-font-smoothing: antialiased;
-}
 
-/* Two soft glows in the logo colors behind the page */
-body::before {
-  content: "";
-  position: fixed;
-  inset: -20vh -10vw auto;
-  height: 70vh;
-  z-index: -1;
-  pointer-events: none;
-  background:
-    radial-gradient(40% 50% at 25% 30%, var(--glow-1), transparent 70%),
-    radial-gradient(40% 50% at 75% 20%, var(--glow-2), transparent 70%);
-  filter: blur(20px);
+  /* Two soft glows in the logo colors behind the page */
+  &::before {
+    content: "";
+    position: fixed;
+    inset: -20vh -10vw auto;
+    height: 70vh;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 50% at 25% 30%, var(--glow-1), transparent 70%),
+      radial-gradient(40% 50% at 75% 20%, var(--glow-2), transparent 70%);
+    filter: blur(20px);
+  }
 }
 
 a {
   color: var(--color-accent);
   text-decoration: none;
-}
 
-a:hover {
-  text-decoration: underline;
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 h1,
@@ -146,6 +146,16 @@ code {
   color: var(--color-accent);
 }
 
+[data-hf-markdown] {
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
 .gradient-text {
   background: var(--gradient-brand);
   -webkit-background-clip: text;
@@ -181,22 +191,22 @@ code {
     border-color 0.15s,
     box-shadow 0.15s,
     transform 0.15s;
-}
 
-.btn:hover {
-  text-decoration: none;
-  border-color: var(--brand-cyan);
+  &:hover {
+    text-decoration: none;
+    border-color: var(--brand-cyan);
+  }
 }
 
 .btn--primary {
   color: var(--color-on-brand);
   background: var(--gradient-brand);
   border-color: transparent;
-}
 
-.btn--primary:hover {
-  box-shadow: 0 6px 24px -6px rgba(23, 182, 216, 0.6);
-  transform: translateY(-1px);
+  &:hover {
+    box-shadow: 0 6px 24px -6px rgba(23, 182, 216, 0.6);
+    transform: translateY(-1px);
+  }
 }
 
 .input {
@@ -211,11 +221,11 @@ code {
   transition:
     border-color 0.15s,
     box-shadow 0.15s;
-}
 
-.input:focus {
-  border-color: var(--brand-cyan);
-  box-shadow: 0 0 0 4px var(--color-accent-soft);
+  &:focus {
+    border-color: var(--brand-cyan);
+    box-shadow: 0 0 0 4px var(--color-accent-soft);
+  }
 }
 
 .muted {

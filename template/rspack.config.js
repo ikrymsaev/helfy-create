@@ -75,6 +75,10 @@ module.exports = {
         ],
       },
       {
+        test: /\.md$/i,
+        use: require.resolve('@helfy/helfy/compiler/md-loader'),
+      },
+      {
         test: /\.ts$/,
         exclude: /node_modules/,
         use: require.resolve('@helfy/helfy/compiler/helfy-ts-loader'),

@@ -18,14 +18,16 @@ import { Link } from "@helfy/helfy";
     gap: 12px;
     padding: 96px 0;
     text-align: center;
-  }
-  .not-found__code {
-    font-size: 6rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: -0.04em;
-  }
-  .not-found p {
-    margin: 0 0 12px;
+
+    &__code {
+      font-size: 6rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    p {
+      margin: 0 0 12px;
+    }
   }
 }
