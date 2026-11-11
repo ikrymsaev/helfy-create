@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.8.2 — 2026-11-11
 
 - Update the starter to `@helfy/helfy ^0.8.0` and `@helfy/helfy-lint ^0.5.0`.
 - Move each page into its own folder with its template and Markdown content; update eager and lazy route imports.
