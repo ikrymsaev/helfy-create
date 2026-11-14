@@ -16,11 +16,11 @@
     "mcp:config": "node scripts/mcp-config.mjs"
   },
   "dependencies": {
-    "@helfy/helfy": "^0.8.0"
+    "@helfy/helfy": "^0.10.1"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@helfy/helfy-lint": "^0.5.0",
+    "@helfy/helfy-lint": "^0.7.0",
     "@rspack/cli": "^2.3.0",
     "@rspack/core": "^2.3.0",
     "@rspack/dev-server": "^2.2.2",

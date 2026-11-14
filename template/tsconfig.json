@@ -4,18 +4,18 @@
     "moduleResolution": "bundler",
     "strictNullChecks": true,
     "target": "es6",
-    "baseUrl": "src",
     "noEmit": true,
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "useDefineForClassFields": true,
     "paths": {
-      "@context/*": ["./context/*"],
-      "@modules/*": ["./modules/*"],
-      "@assets/*": ["./assets/*"],
-      "@pages/*": ["./pages/*"],
-      "@shared/*": ["./shared/*"],
-      "@widgets/*": ["./widgets/*"],
+      "@/*": ["./src/*"],
+      "@context/*": ["./src/context/*"],
+      "@modules/*": ["./src/modules/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@pages/*": ["./src/pages/*"],
+      "@shared/*": ["./src/shared/*"],
+      "@widgets/*": ["./src/widgets/*"]
     }
   },
   "include": ["src/**/*", ".helfy/**/*", "declaration.d.ts"]

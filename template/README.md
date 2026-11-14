@@ -1,6 +1,6 @@
 # {{PROJECT_NAME}}
 
-A Helfy 0.8 application with TypeScript, Rspack 2, `.hf` templates, native Markdown and standard decorators.
+A Helfy 0.10 application with helfy-lint 0.7, TypeScript, Rspack 2, `.hf` templates, native Markdown and standard decorators.
 See [ARCHITECTURE.md](ARCHITECTURE.md) for the layers and dependency injection.
 
 ```bash
@@ -61,8 +61,19 @@ the browser does not load a Markdown parser.
 
 Prettier formats standalone `.md` files normally; the Helfy formatter handles `.hf`.
 The compiler validates Markdown during builds, while ESLint checks TypeScript layer
-rules. Install Helfy editor extension 0.3.0 or later for Markdown highlighting,
-diagnostics and navigation (`npx helfy-create --install-extension`).
+rules. Install Helfy editor extension 0.5.0 or later for the matching template
+type checks, import resolution, Markdown and navigation (`npx helfy-create --install-extension`).
+
+## Import aliases
+
+Declare aliases in `compilerOptions.paths` in `tsconfig.json`, with targets relative
+to that file (for example `"@shared/*": ["./src/shared/*"]`). Helfy does not support
+`baseUrl`. Rspack uses `helfyRspack({ projectDir: __dirname })` from
+`@helfy/helfy/bundler`, and Vitest reuses the resulting aliases. The compiler and
+editor read the same paths; add new aliases in the tsconfig only.
+
+`@effect` and `@watch` methods run automatically. Do not call them or pass them as
+event handlers; change the source state or extract shared logic into an ordinary method.
 
 ## DevTools
 
@@ -70,6 +81,9 @@ diagnostics and navigation (`npx helfy-create --install-extension`).
 Open the floating panel while running the development server, then add or toggle a task
 to inspect views, signals and events. The UI loads separately and does not inspect itself.
 The production application disables the plugin and removes reactive probes.
+The default docked panel remains enabled. A detached panel is optional and requires
+a dedicated HTML/JavaScript entry; see the installed framework's
+[DevTools documentation](https://github.com/ikrymsaev/helfy/blob/main/packages/helfy/README.md#devtools-panel).
 
 ## MCP connection
 
@@ -83,17 +97,41 @@ it independent of the client's working directory. Use `npm run --silent mcp:conf
 when consuming stdout as JSON. The helper does not change client settings.
 
 Build the project first so MCP can read the generated DI graph and component contracts.
-This connection can inspect project metadata and diagnostics. Browser runtime data
-requires a snapshot captured inside the development application with
-`dumpDevtools()` from `@helfy/helfy/devtools`. Save that JSON in the project, then run:
+This connection can inspect project metadata and diagnostics. For an offline runtime
+snapshot, capture `dumpDevtools()` from `@helfy/helfy/devtools` inside the development
+application. Save that JSON in the project, then run:
 
 ```bash
 npm run mcp:config -- --file ./devtools-dump.json
 ```
 
 The dump is read once at MCP startup. Capture a new dump and restart the server to
-inspect updated state. There is currently no live connection to the browser tab.
+inspect updated state.
 Clients with a different configuration schema can reuse the printed `command` and `args`.
+
+For a live browser connection, run the MCP client on the same machine as the development
+server. Generate a token and print the configuration (PowerShell):
+
+```powershell
+$env:HELFY_MCP_BRIDGE_TOKEN = node -e "console.log(require('node:crypto').randomBytes(24).toString('hex'))"
+npm run --silent mcp:config -- --bridge-port 47831 --bridge-token $env:HELFY_MCP_BRIDGE_TOKEN --bridge-origin http://localhost:3000
+```
+
+Copy that configuration into the MCP client and restart its server. In `src/index.ts`,
+configure the development plugin with the same token and bridge URL:
+
+```ts
+.use(withDevtools({
+  bridge: { url: "http://127.0.0.1:47831", token: devBridgeToken },
+}), process.env.NODE_ENV !== "production")
+```
+
+Supply `devBridgeToken` through your local development bundler configuration; do not
+commit the token. The origin must exactly match the development page's origin.
+All three bridge options are required and cannot be combined with `--file`.
+Call `list_runtime_sessions`, then `select_runtime_session` if several tabs are open.
+Runtime tools and `get_history` then read the current browser state. The panel uses
+a Worker relay by default, with direct transport as a fallback.
 
 ## Testing examples
 

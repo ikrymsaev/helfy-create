@@ -1,7 +1,7 @@
-import { View, binded } from "@helfy/helfy";
+import { View, binded, type HelfyBindableProps } from "@helfy/helfy";
 import template from "./TextInput.hf";
 
-interface Props {
+interface Props extends HelfyBindableProps {
   placeholder?: string;
   class?: string;
 }

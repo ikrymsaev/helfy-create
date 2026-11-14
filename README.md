@@ -24,8 +24,10 @@ npx helfy-create
 
 ## Requirements
 
-Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy ^0.8.0 and helfy-lint ^0.5.0.
+Node.js 20.19+, 22.13+ or >=24 and TypeScript 5.9.x. The starter uses Helfy ^0.10.1 and helfy-lint ^0.7.0.
 TypeScript and `.hf` templates compile through the Helfy TypeScript loader with standard decorators.
+Import aliases live in `tsconfig.json` without `baseUrl`; `helfyRspack()` derives the bundler's
+resolution settings, also reused by Vitest.
 Routing and logging are enabled with `withRouter` and `withLogger` app plugins.
 The DevTools panel is enabled only in development. Vitest 4 and jsdom compile tests through
 the public Helfy testing adapters.
@@ -50,7 +52,8 @@ The Helfy extension adds `.hf` template support: highlighting, type checking of 
 go-to-definition, completion, diagnostics and formatting. It is not in the Marketplace.
 
 `helfy-create` offers to install it after creating a project — into every editor whose command line tool is on
-`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.3.0 or later for native Markdown support with Helfy 0.8.0. The installer downloads the latest release. To install or update it at any time:
+`PATH` (`code`, `cursor`, `codium`, `windsurf`). Use extension 0.5.0 or later with Helfy 0.10.1
+for the matching template checks and import resolution. The installer downloads the latest release. To install or update it at any time:
 
 ```bash
 npx helfy-create --install-extension
@@ -105,8 +108,8 @@ The starter includes `npm test`, `npm run test:watch`, `npm run typecheck`,
 `npm run doctor` and `npm run doctor:json`.
 Run `npm run mcp:config` to print MCP client JSON with absolute paths, or
 `npm run mcp:config -- --file ./devtools-dump.json` to inspect a runtime snapshot.
-The MCP client starts the server; browser runtime data currently requires a dump.
-See the generated project's README for connection and snapshot instructions.
+The MCP client starts the server. Browser runtime data is available through an optional local
+bridge or a saved dump. See the generated project's README for connection instructions.
 
 `src/index.ts` installs DevTools through `.use(withDevtools(), process.env.NODE_ENV !== "production")`.
 The development panel loads separately; production builds disable the plugin and remove reactive probes.

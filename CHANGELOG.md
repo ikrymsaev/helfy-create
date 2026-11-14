@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.9.0 — 2026-11-14
+
+- Update the starter to `@helfy/helfy ^0.10.1` and `@helfy/helfy-lint ^0.7.0`; refresh the lockfile.
+- Remove unsupported `baseUrl`, make alias targets relative to `tsconfig.json`, and derive Rspack/Vitest aliases through the public `helfyRspack()` helper.
+- Declare `TextInput`'s named-binding contract with `HelfyBindableProps` for current template type checking.
+- Add validated local browser bridge options to `mcp:config`, retaining offline dump support.
+- Document matching editor extension 0.5.0, automatic reactive lifecycle methods, live MCP and optional detached DevTools.
+
 ## 0.8.2 — 2026-11-11
 
 - Update the starter to `@helfy/helfy ^0.8.0` and `@helfy/helfy-lint ^0.5.0`.

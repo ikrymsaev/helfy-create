@@ -1,5 +1,6 @@
 const path = require('path');
 const { rspack } = require('@rspack/core');
+const { helfyRspack } = require('@helfy/helfy/bundler');
 
 const isDev = process.env.NODE_ENV === 'development';
 
@@ -28,19 +29,7 @@ module.exports = {
     publicPath: '/',
     clean: true,
   },
-  resolve: {
-    modules: ['src', 'node_modules'],
-    extensions: ['.ts', '.js', '.hf', '.css'],
-    alias: {
-      '@': path.resolve(__dirname, 'src'),
-      '@context': path.resolve(__dirname, 'src/context'),
-      '@modules': path.resolve(__dirname, 'src/modules'),
-      '@shared': path.resolve(__dirname, 'src/shared'),
-      '@assets': path.resolve(__dirname, 'src/assets'),
-      '@pages': path.resolve(__dirname, 'src/pages'),
-      '@widgets': path.resolve(__dirname, 'src/widgets'),
-    },
-  },
+  resolve: helfyRspack({ projectDir: __dirname }),
   plugins: [
     new rspack.HtmlRspackPlugin({
       template: './index.html',

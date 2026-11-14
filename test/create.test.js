@@ -32,8 +32,8 @@ test("generates nested projects with a valid package name and public dependencie
   const root = path.join(cwd, "apps/my-app");
   const pkg = JSON.parse(fs.readFileSync(path.join(root, "package.json"), "utf8"));
   assert.equal(pkg.name, "my-app");
-  assert.equal(pkg.dependencies["@helfy/helfy"], "^0.8.0");
-  assert.equal(pkg.devDependencies["@helfy/helfy-lint"], "^0.5.0");
+  assert.equal(pkg.dependencies["@helfy/helfy"], "^0.10.1");
+  assert.equal(pkg.devDependencies["@helfy/helfy-lint"], "^0.7.0");
   assert.ok(!JSON.stringify(pkg).includes("file:"));
   for (const file of [".gitignore", "README.md", "vitest.config.mts", "package-lock.json", "src/assets/logo.svg", "scripts/mcp-config.mjs"]) {
     assert.ok(fs.existsSync(path.join(root, file)), file);

@@ -30,6 +30,7 @@ function run(command, args, cwd, capture = false, input) {
   return result.stdout;
 }
 const npm = (args, cwd, capture) => run(process.execPath, [npmCli, ...args], cwd, capture);
+const failures = [];
 
 try {
   const [pack] = JSON.parse(npm(["pack", "--ignore-scripts", "--json", "--pack-destination", temp], root, true));
@@ -56,24 +57,54 @@ try {
     assert.equal(config.command, process.execPath);
     assert.ok(path.isAbsolute(config.args[0]));
     assert.deepEqual(config.args.slice(1), ["--project-root", project]);
+    if (lint) {
+      const bridgeOptions = ["--bridge-port", "47831", "--bridge-token", "starter-check-token-123456", "--bridge-origin", "http://localhost:3000"];
+      const helper = path.join(project, "scripts/mcp-config.mjs");
+      const bridgeConfig = JSON.parse(run(process.execPath, [helper, ...bridgeOptions], temp, true)).mcpServers.helfy;
+      assert.deepEqual(bridgeConfig.args, [...config.args, ...bridgeOptions]);
+      const dump = path.join(project, "snapshot.json");
+      fs.writeFileSync(dump, "{}");
+      const dumpConfig = JSON.parse(run(process.execPath, [helper, "--file", "snapshot.json"], temp, true)).mcpServers.helfy;
+      assert.deepEqual(dumpConfig.args, [...config.args, "--file", dump]);
+      for (const options of [
+        ["--bridge-port", "47831"],
+        [...bridgeOptions, "--file", dump],
+        [...bridgeOptions, "--bridge-port", "47832"],
+        ["--bridge-port", "0", ...bridgeOptions.slice(2)],
+        ["--bridge-port", "65536", ...bridgeOptions.slice(2)],
+        [...bridgeOptions.slice(0, 2), "--bridge-token", "short", ...bridgeOptions.slice(4)],
+        [...bridgeOptions.slice(0, 4), "--bridge-origin", "http://localhost:3000/path"],
+      ]) {
+        const invalid = spawnSync(process.execPath, [helper, ...options], { cwd: temp, encoding: "utf8", timeout: 20_000 });
+        assert.equal(invalid.status, 1, invalid.stderr);
+        assert.equal(invalid.stdout, "");
+      }
+    }
     const requests = [
       { jsonrpc: "2.0", id: 1, method: "initialize", params: { protocolVersion: "2024-11-05" } },
       { jsonrpc: "2.0", method: "notifications/initialized" },
       { jsonrpc: "2.0", id: 2, method: "tools/list" },
       { jsonrpc: "2.0", id: 3, method: "tools/call", params: { name: "get_project_graph" } },
     ].map(JSON.stringify).join("\n") + "\n";
-    const responses = run(config.command, config.args, temp, true, requests).trim().split(/\r?\n/).map(JSON.parse);
-    assert.equal(responses.length, 3);
-    assert.equal(responses[0].result.serverInfo.name, "helfy-mcp");
-    assert.ok(responses[1].result.tools.some(tool => tool.name === "get_project_graph"));
-    assert.ok(responses[2].result.structuredContent.generated);
-    assert.ok(responses[2].result.structuredContent.tokens.length > 0);
+    try {
+      const responses = run(config.command, config.args, temp, true, requests).trim().split(/\r?\n/).map(JSON.parse);
+      assert.equal(responses.length, 3);
+      assert.equal(responses[0].result.serverInfo.name, "helfy-mcp");
+      assert.ok(responses[1].result.tools.some(tool => tool.name === "get_project_graph"));
+      assert.ok(responses[2].result.structuredContent.generated);
+      assert.ok(responses[2].result.structuredContent.tokens.length > 0);
+    } catch (error) {
+      // Keep checking the application and the other variant, but still fail the release gate.
+      failures.push(`${name}: MCP check failed (${error.message})`);
+      console.error(failures.at(-1));
+    }
     if (lint) {
       npm(["run", "lint"], project);
       npm(["run", "format:check"], project);
     }
     npm(["run", "doctor", "--", "--checks", "versions,tsconfig,build-setup"], project);
   }
+  assert.equal(failures.length, 0, failures.join("\n"));
   console.log("Packed starter passed with and without lint tooling.");
 } finally {
   // temp is the exact fresh mkdtemp directory allocated by this process.
